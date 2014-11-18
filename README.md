@@ -1,7 +1,7 @@
 Shield
 ============
 
-Maintenance manager for Nette Framework will help you set your website into maintenance mode whilist allowing access to provided IP addresses.
+Maintenance manager for Nette Framework will help you set your website into maintenance mode whilst allowing access to provided IP addresses.
 
 Add Shield configuration to your config file:
 ```php
