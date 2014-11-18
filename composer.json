@@ -1,0 +1,31 @@
+{
+    "name": "juniwalk/nette-shield",
+    "description": "Maintenance manager for Nette Framework",
+    "version": "1.0.0",
+    "type": "library",
+    "keywords": ["nette", "shield", "maintenance"],
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Martin Procházka",
+            "email": "juniwalk@outlook.cz",
+            "role": "Developer"
+        }
+    ],
+
+    "require":
+	{
+		"nette/nette": "2.2.*"
+    },
+
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+
+	"repositories":
+	[
+        {
+            "type": "vcs",
+            "url": "https://github.com/nette/nette"
+        }
+    ]
+}

@@ -106,8 +106,12 @@
 				return true;
 			}
 
+
+			// Get visitors IP address
+			$host = getenv('REMOTE_ADDR');
+
 			// If this IP Address is not allowed in the list
-			if ( !Debugger::detectDebugMode( $this->hosts ) )
+			if ( !in_array( $host, $this->hosts ) )
 			{
 				return false;
 			}
