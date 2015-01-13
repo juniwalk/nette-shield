@@ -95,7 +95,7 @@ class Shield
     {
         // Gather needed properties for check
         $hosts = $this->config['hosts'];
-        $host = getenv('REMOTE_ADDR');
+        $host = $_SERVER['REMOTE_ADDR'];
 
         // If the Shield is disabled
         if (!$this->config['enabled']) {
