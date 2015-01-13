@@ -11,7 +11,7 @@ return array
 	// Nette Framework extensions
 	'extensions' => array
 	(
-		'shield' => \JuniWalk\Security\Shield\Extension::class,
+		'shield' => \JuniWalk\Shield\DI\NetteExtension::class,
 	),
 
 	// Shield extension
