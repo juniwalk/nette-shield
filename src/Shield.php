@@ -111,11 +111,11 @@ class Shield
      */
     protected function takeAction()
     {
-        // Get action value
-        $value = $this->getValue();
+        // Get action path value
+        $value = $this->getAction('path');
 
         // Which action should be taken?
-        switch ($this->getAction( )) {
+        switch ($this->getAction('type')) {
             // Action - Include file
             case static::TASK_INCLUDE:
 
@@ -146,36 +146,18 @@ class Shield
     /**
      * Get action type
      *
-     * @return  string
+     * @param  string  $type  Needed type
+     * @return string|null
      */
-    public function getAction()
+    protected function getAction($type)
     {
-        // If there is no path defined in the action
-        if (!isset($this->config['action']['type'])) {
+        // If there is no value for this value type
+        if (!isset($this->config['action'][$type])) {
             return null;
         }
 
-
-        // Return the path of desired action
-        return $this->config['action']['type'];
-    }
-
-
-    /**
-     * Get action value
-     *
-     * @return  string|null
-     */
-    public function getValue()
-    {
-        // If there is no path defined in the action
-        if (!isset($this->config['action']['path'])) {
-            return null;
-        }
-
-
-        // Return the path of desired action
-        return $this->config['action']['path'];
+        // Return value of selected value type
+        return $this->config['action'][$type];
     }
 
 
