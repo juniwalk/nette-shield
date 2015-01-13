@@ -10,39 +10,19 @@ Maintenance manager for Nette Framework will help you set your website into main
 [![License](https://img.shields.io/packagist/l/juniwalk/shield.svg?style=flat-square)](https://mit-license.org)
 
 Add Shield configuration to your config file:
-```php
-// Build configuration
-return array
-(
-	// Nette Framework extensions
-	'extensions' => array
-	(
-		'shield' => \JuniWalk\Shield\DI\NetteExtension::class,
-	),
+```neon
+extensions:
+        shield: JuniWalk\Shield\DI\ShieldExtension
 
-	// Shield extension
-	'shield' => array
-	(
-		'enabled' => true,  // Enable Shield
-		'debugger' => true, // Display in Tracy bar
-		'hosts' => array    // List of allowed IP addresses
-		(
-			'127.0.0.1',      // Localhost
-			'231.200.103.14', // Random IP1
-			'91.232.247.14',  // Random IP2
-		),
-	),
-);
+shield:
+        enabled: true
+        debugger: true
+        action:
+        	type: include
+        	path: '/path/to/your/file.php'
+        hosts:
+        	'127.0.0.1'
+        	'::1'
 ```
 
-And then call Shield in your bootstrap.php file:
-```php
-// If there is Shield service enabled and visitor is not authorized to see this page right now
-if ( $container->hasService('shield') AND !$container->getService('shield')->isAuthorized( ) )
-{
-	// Show maintenance page to the visitor
-	include __DIR__ ."/../.maintenance.php"; exit;
-}
-```
-
-**Beware!** Enabling Shield will also enable `\Tracy\Debugger` in strict mode.
+That's it!
