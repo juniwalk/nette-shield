@@ -10,20 +10,30 @@ Maintenance manager for Nette Framework will help you set your website into main
 
 Example
 -------
-Add Shield configuration to your config file:
+Add Shield configuration to your config.neon file.
+
 ```neon
 extensions:
         shield: JuniWalk\Shield\DI\ShieldExtension
 
 shield:
-        enabled: true
-        debugger: true
-        action:
-        	type: include
-        	path: '/path/to/your/file.php'
-        hosts:
-        	'127.0.0.1'
-        	'::1'
+    enabled: true
+    debugger: true
+    action:
+        type: JuniWalk\Shield\Shield::TASK_INCLUDE
+        path: %appDir%/maintenance.php
+    hosts:
+        Localhost IPv4: 127.0.0.1
+        Localhost IPv6: ::1
 ```
 
 That's it!
+
+Possible actions are:
+- Include: Include any file you wish.
+- Redirect: Redirect to given url.
+- Print: Print out given text directly.
+- Callback: Given callback will be called, instance of `Shield` will be provided.
+- None: No action will be taken.
+
+*Either way `Shield::terminate();` will be called to exit the flow.*
