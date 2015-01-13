@@ -105,16 +105,15 @@ class Shield
     protected function takeAction()
     {
         // Get the action type and additional parameter
-        $action = $this->config['action'];
+        $type = $this->config['action']['type'];
+        $path = $this->config['action']['path'];
 
         // Send headers about undergoing maintenance mode
         header('HTTP/1.1 503 Service Unavailable');
         header('Retry-After: 300');
 
-        $path = $action['path'];
-
         // Which action should be taken?
-        switch ($action['type']) {
+        switch ($type) {
             // Action - Include file
             case static::INCLUDE_FILE:
 
@@ -128,10 +127,6 @@ class Shield
                 header('Location: '.$path, true, 503);
 
                 break;
-
-            // Action - None
-            case static::NONE:
-            default:
         }
 
         // Terminate
