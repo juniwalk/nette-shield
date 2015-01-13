@@ -89,7 +89,7 @@ class Shield
     /**
      * Is the visitor authorized?
      *
-     * @return  bool|null
+     * @return  bool
      */
     public function isAuthorized()
     {
@@ -108,12 +108,14 @@ class Shield
         }
 
         // Unauthorized visitor
-        $this->takeAction();
+        return $this->takeAction();
     }
 
 
     /**
      * Take action against unauthorized visitor
+     *
+     * @return bool
      */
     protected function takeAction()
     {
@@ -148,7 +150,7 @@ class Shield
         }
 
         // Either way terminate script
-        static::terminate( );
+        return (bool) static::terminate( );
     }
 
 
