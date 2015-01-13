@@ -10,6 +10,9 @@
 
 namespace JuniWalk\Shield\DI;
 
+use JuniWalk\Shield\Shield;
+use Nette\PhpGenerator\ClassType;
+
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
     /**
@@ -25,10 +28,20 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
      * @var array
      */
     public $defaults = [
-        'debugger'	=> false,
-        'enabled'	=> false,
-        'hosts'		=> [
-            '127.0.0.1'
+        'enabled' => false,
+        'debugger' => true,
+
+        // Action to take
+        'action' => [
+            // No action will be taken
+            'type' => Shield::NONE,
+            'path' => null,
+        ],
+
+        // Allowed hosts
+        'hosts' => [
+            '127.0.0.1',  // Localhost IPv4
+            '::1',        // Localhost IPv6
         ],
     ];
 
@@ -41,8 +54,28 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
         // Get the configuration values extending defaults
         $config = $this->getConfig($this->defaults);
 
-        // Create new OAuth service in the DI Container
+        // Create new Shield service in the DI Container
         $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
             ->setClass('\JuniWalk\Shield\Shield', [$config]);
+    }
+
+	/**
+	 * TODO: Define documentation
+	 */
+    public function afterCompile(ClassType $class)
+    {
+        \Tracy\Debugger::dump($class);exit;
+
+
+/*
+
+        // If the visitor is authorized
+        if ($this->isAuthorized()) {
+            return null;
+        }
+
+        // Unauthorized visitor
+        $this->takeAction( );
+*/
     }
 }
