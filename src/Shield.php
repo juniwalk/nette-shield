@@ -116,29 +116,22 @@ class Shield
 
         // Which action should be taken?
         switch ($this->getAction('type')) {
-            // Action - Include file
             case static::TASK_INCLUDE:
 
                 include $value;
-
                 break;
 
-            // Action - Text print
             case static::TASK_PRINT:
 
                 print $value;
-
                 break;
 
-            // Action - Url redirect
             case static::TASK_REDIRECT:
 
                 header('Location: '.$value, true, 503);
-
                 break;
         }
 
-        // Terminate code flow
         static::terminate( );
     }
 
