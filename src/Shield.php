@@ -20,21 +20,28 @@ class Shield
      *
      * @var string
      */
-    const INCLUDE_FILE = 'include';
+    const TASK_INCLUDE = 'include';
 
     /**
      * Shield action - Url redirect
      *
      * @var string
      */
-    const URL_REDIRECT = 'redirect';
+    const TASK_REDIRECT = 'redirect';
+
+    /**
+     * Shield action - Text print
+     *
+     * @var string
+     */
+    const TASK_PRINT = 'print';
 
     /**
      * Shield action - none
      *
      * @var string
      */
-    const NONE = 'none';
+    const TASK_NONE = 'none';
 
 
     /**
@@ -104,30 +111,82 @@ class Shield
      */
     protected function takeAction()
     {
-        // Get the action type and additional parameter
-        $type = $this->config['action']['type'];
-        $path = $this->config['action']['path'];
-
-        // Send headers about undergoing maintenance mode
-        header('HTTP/1.1 503 Service Unavailable');
-        header('Retry-After: 300');
+        // Get action value
+        $value = $this->getValue();
 
         // Which action should be taken?
-        switch ($type) {
+        switch ($this->getAction( )) {
             // Action - Include file
-            case static::INCLUDE_FILE:
+            case static::TASK_INCLUDE:
 
-                include $path;
+                include $value;
+
+                break;
+
+            // Action - Text print
+            case static::TASK_PRINT:
+
+                print $value;
 
                 break;
 
             // Action - Url redirect
-            case static::URL_REDIRECT:
+            case static::TASK_REDIRECT:
 
-                header('Location: '.$path, true, 503);
+                header('Location: '.$value, true, 503);
 
                 break;
         }
+
+        // Terminate code flow
+        static::terminate( );
+    }
+
+
+    /**
+     * Get action type
+     *
+     * @return  string
+     */
+    public function getAction()
+    {
+        // If there is no path defined in the action
+        if (!isset($this->config['action']['type'])) {
+            return null;
+        }
+
+
+        // Return the path of desired action
+        return $this->config['action']['type'];
+    }
+
+
+    /**
+     * Get action value
+     *
+     * @return  string|null
+     */
+    public function getValue()
+    {
+        // If there is no path defined in the action
+        if (!isset($this->config['action']['path'])) {
+            return null;
+        }
+
+
+        // Return the path of desired action
+        return $this->config['action']['path'];
+    }
+
+
+    /**
+     * Terminate code flow
+     */
+    protected static function terminate()
+    {
+        // Send headers about undergoing maintenance mode
+        header('HTTP/1.1 503 Service Unavailable');
+        header('Retry-After: 300');
 
         // Terminate
         exit(0);

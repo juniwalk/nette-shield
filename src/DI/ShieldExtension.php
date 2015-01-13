@@ -35,7 +35,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
         // Action to take
         'action' => [
             // No action will be taken
-            'type' => Shield::NONE,
+            'type' => Shield::TASK_NONE,
             'path' => null,
         ],
 
