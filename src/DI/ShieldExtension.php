@@ -60,11 +60,11 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
             ->setClass('\JuniWalk\Shield\Shield', [$config]);
     }
 
-	/**
-	 * Add Shield execution into initialize method
+    /**
+     * Add Shield execution into initialize method
      *
      * @param ClassType  $class
-	 */
+     */
     public function afterCompile(ClassType $class)
     {
         // Add authomatic Shield::isAuthorized() call
