@@ -8,7 +8,7 @@
  * @license   MIT License
  */
 
-namespace JuniWalk\Shield;
+namespace JuniWalk\Shield\DI;
 
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
