@@ -1,31 +1,33 @@
 {
-    "name": "juniwalk/Shield",
-    "description": "Maintenance manager for Nette Framework",
-    "version": "1.0.0",
-    "type": "library",
-    "keywords": ["nette", "shield", "maintenance"],
-    "license": "GPL-3.0",
-    "authors": [
-        {
-            "name": "Martin Procházka",
-            "email": "juniwalk@outlook.cz",
-            "role": "Developer"
-        }
-    ],
-
-    "require":
-	{
-		"nette/nette": "2.2.*"
-    },
-
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-
-	"repositories":
-	[
-        {
-            "type": "vcs",
-            "url": "https://github.com/nette/nette"
-        }
-    ]
+	"name": "juniwalk/shield",
+	"type": "library",
+	"description": "Maintenance manager for Nette Framework",
+	"keywords": ["nette", "shield", "maintenance"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Martin Procházka",
+			"email": "juniwalk@outlook.cz",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/juniwalk/shield/issues"
+	},
+	"require": {
+		"php": ">=5.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"JuniWalk\\Shield\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"JuniWalk\\Shield\\Tests\\": "tests/"
+		}
+	}
 }
