@@ -37,6 +37,13 @@ class Shield
     const TASK_PRINT = 'print';
 
     /**
+     * Shield action - Callback
+     *
+     * @var string
+     */
+    const TASK_CALLBACK = 'callback';
+
+    /**
      * Shield action - none
      *
      * @var string
@@ -116,22 +123,32 @@ class Shield
 
         // Which action should be taken?
         switch ($this->getAction('type')) {
+            // Shield action - File inclusion
             case static::TASK_INCLUDE:
 
                 include $value;
                 break;
 
+            // Shield action - Text output
             case static::TASK_PRINT:
 
                 print $value;
                 break;
 
+            // Shield action - Callback invoke
+            case static::TASK_CALLBACK:
+
+                call_user_func($value, $this);
+                break;
+
+            // Shield action - Redirect to url
             case static::TASK_REDIRECT:
 
                 header('Location: '.$value, true, 503);
                 break;
         }
 
+        // Either way terminate script
         static::terminate( );
     }
 
