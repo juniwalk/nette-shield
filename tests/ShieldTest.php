@@ -10,20 +10,59 @@
 
 namespace JuniWalk\Shield\Tests;
 
-use \JuniWalk\Shield\Shield;
-
 class ShieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Basic Shield test
+     * Shield instance
+     *
+     * @var Shield
      */
-    public function testBasic()
-    {
-        // Create instance with provided configuration
-        $shield = new Shield(static::getConfig());
+    public $shield;
 
-        // Assert this basic test case
-        $this->assertTrue($shield->isEnabled());
+
+    /**
+     * Prepare enviroment for the tests
+     */
+    protected function setUp()
+    {
+        // Prepare server properties in enviroment
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+        // Create Shield instance
+        $this->shield = new Shield(static::getConfig());
+    }
+
+
+    /**
+     * Test Shield status
+     */
+    public function testEnabled()
+    {
+        // Check that the Shield is enabled
+        $this->assertTrue($this->shield->isEnabled());
+    }
+
+
+    /**
+     * Test authorized visitor
+     */
+    public function testAuthorized()
+    {
+        // Check that the visitor is authorized to continue
+        $this->assertTrue($this->shield->isAuthorized());
+    }
+
+
+    /**
+     * Test unauthorized visitor
+     */
+    public function testUnAuthorized()
+    {
+        // Override enviroment variable just for this test
+        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
+
+        // Check that the visitor is no longer authorized
+        $this->assertFalse($this->shield->isAuthorized());
     }
 
 
