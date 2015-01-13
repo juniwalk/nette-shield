@@ -11,7 +11,6 @@
 namespace JuniWalk\Shield;
 
 use JuniWalk\Shield\Bridges\ShieldPanel;
-use \Tracy\Debugger;
 
 class Shield
 {
