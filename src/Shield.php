@@ -52,22 +52,33 @@ class Shield
     {
         // Merge the configuration into the instance holder
         $this->config = array_merge($this->config, $config);
-/*
+
         // If the debbuger is enabled
         if ($this->config['debugger']) {
-            // Register debugger panel into the Tracy bar
-            Debugger::getBar()->addPanel($this, 'shield');
+            // Register Shield into Tracy
+            new ShieldPanel($this);
         }
-*/
     }
 
 
     /**
-     * Authorize access to the page
+     * Is the Shield enabled?
      *
      * @return  bool
      */
-    protected function isAuthorized()
+    public function isEnabled()
+    {
+        // Return state of the Shield
+        return (bool) $this->config['enabled'];
+    }
+
+
+    /**
+     * Is the visitor authorized?
+     *
+     * @return  bool
+     */
+    public function isAuthorized()
     {
         // Gather needed properties for check
         $hosts = $this->config['hosts'];
@@ -79,7 +90,12 @@ class Shield
         }
 
         // If the visitor is unauthorized
-        return in_array($host, $hosts);
+        if (in_array($host, $hosts)) {
+            return true;
+        }
+
+        // Unauthorized visitor
+        $this->takeAction();
     }
 
 
@@ -89,16 +105,18 @@ class Shield
     protected function takeAction()
     {
         // Get the action type and additional parameter
-        list($type, $path) = $this->config['action'];
+        $action = $this->config['action'];
 
         // Send headers about undergoing maintenance mode
         header('HTTP/1.1 503 Service Unavailable');
         header('Retry-After: 300');
 
+        $path = $action['path'];
+
         // Which action should be taken?
-        switch ($type) {
+        switch ($action['type']) {
             // Action - Include file
-            case staitc::INCLUDE_FILE:
+            case static::INCLUDE_FILE:
 
                 include $path;
 

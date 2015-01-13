@@ -12,6 +12,7 @@ namespace JuniWalk\Shield\DI;
 
 use JuniWalk\Shield\Shield;
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Helpers;
 
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
@@ -64,18 +65,11 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
 	 */
     public function afterCompile(ClassType $class)
     {
-        \Tracy\Debugger::dump($class);exit;
-
-
-/*
-
-        // If the visitor is authorized
-        if ($this->isAuthorized()) {
-            return null;
-        }
-
-        // Unauthorized visitor
-        $this->takeAction( );
-*/
+        // Add authomatic Shield::isAuthorized() call
+        $init = $class->methods['initialize'];
+        $init->addBody(Helpers::format(
+            '$this->getService(?)->isAuthorized();',
+            $this->prefix(static::TAG)
+        ));
     }
 }

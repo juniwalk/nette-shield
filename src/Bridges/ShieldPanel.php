@@ -10,6 +10,9 @@
 
 namespace JuniWalk\Shield\Bridges;
 
+use JuniWalk\Shield\Shield;
+use Tracy\Debugger;
+
 class ShieldPanel implements \Tracy\IBarPanel
 {
     /**
@@ -25,30 +28,19 @@ class ShieldPanel implements \Tracy\IBarPanel
      *
      * @var bool
      */
-    public $enabled;
+    public $shield;
 
 
     /**
      * @param  array  $config
      */
-    public function __construct(array $config)
+    public function __construct(Shield &$shield)
     {
-        // Walk through each config property
-        foreach ($config as $key => $value) {
-            // If there is no such property
-            if (!property_exists($this, $key)) {
-                continue;
-            }
+        // Assign Shield instance
+        $this->shield = $shield;
 
-            // Assign value to instance
-            $this->$key = $value;
-        }
-
-        // If the debbuger is enabled
-        if ($this->debugger == true) {
-            // Register debugger panel into the Tracy bar
-            Debugger::getBar()->addPanel($this, 'shield');
-        }
+        // Register debugger panel into the Tracy bar
+        Debugger::getBar()->addPanel($this, 'shield');
     }
 
 
@@ -59,10 +51,15 @@ class ShieldPanel implements \Tracy\IBarPanel
      */
     public function getTab()
     {
-        return '<span title="Shield '.( $this->enabled ? "enabled" : "disabled" ).'">
-<img src="'.static::ICON.'" alt="shield" '.( $this->enabled ? '' : 'style="opacity: .5;"' ).' />'.
-    ( $this->enabled ? 'On' : 'Off' ).
-'</span>';
+        // Get the current status of the Shield
+        $enabled = $this->shield->isEnabled();
+
+        return sprintf(
+            '<span title="Shield %1$s"><img src="%2$s" alt="shield" %3$s /> %1$s</span>',
+            $enabled ? 'On' : 'Off',
+            static::ICON,
+            $enabled ?: 'style="opacity: .5;"'
+        );
     }
 
 
