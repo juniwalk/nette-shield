@@ -1,6 +1,5 @@
 Shield
 ============
-
 Maintenance manager for Nette Framework will help you set your website into maintenance mode whilst allowing access to provided IP addresses.
 
 [![Travis](https://img.shields.io/travis/juniwalk/shield.svg?style=flat-square)](https://travis-ci.org/juniwalk/shield)
@@ -9,6 +8,8 @@ Maintenance manager for Nette Framework will help you set your website into main
 [![Code Quality](https://img.shields.io/scrutinizer/g/juniwalk/shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/shield/)
 [![License](https://img.shields.io/packagist/l/juniwalk/shield.svg?style=flat-square)](https://mit-license.org)
 
+Example
+-------
 Add Shield configuration to your config file:
 ```neon
 extensions:
