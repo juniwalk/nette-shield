@@ -83,7 +83,7 @@ class Shield
     /**
      * Is the visitor authorized?
      *
-     * @return  bool
+     * @return  bool|null
      */
     public function isAuthorized()
     {

@@ -61,7 +61,9 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
     }
 
 	/**
-	 * TODO: Define documentation
+	 * Add Shield execution into initialize method
+     *
+     * @param ClassType  $class
 	 */
     public function afterCompile(ClassType $class)
     {
