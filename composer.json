@@ -18,7 +18,8 @@
 		"php": ">=5.4"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~4.4"
+		"phpunit/phpunit": "~4.4",
+        "tracy/tracy": ">=2.3.0"
 	},
 	"autoload": {
 		"psr-4": {
