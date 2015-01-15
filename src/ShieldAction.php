@@ -77,7 +77,7 @@ class ShieldAction
         }
 
         // If the URL is seriously malformed
-        if (parse_url($url) === false) {
+        if (!is_string($url)) {
             throw new \ErrorException('Shield: Invalid url for redirect given.');
         }
 
