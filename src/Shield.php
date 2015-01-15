@@ -120,10 +120,10 @@ class Shield
     protected function takeAction()
     {
         // Get action path value
-        $value = $this->getAction('path');
+        $value = $this->getAction('data');
 
         // Which action should be taken?
-        switch ($this->getAction('type')) {
+        switch ($this->getAction('task')) {
             // Shield action - File inclusion
             case static::TASK_INCLUDE:
 
