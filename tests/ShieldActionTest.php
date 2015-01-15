@@ -16,24 +16,6 @@ use JuniWalk\Shield\ShieldAction;
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Shield instance
-     *
-     * @var Shield
-     */
-    public $shield;
-
-
-    /**
-     * Prepare enviroment for the tests
-     */
-    protected function setUp()
-    {
-        // Create Shield instance
-        $this->shield = new Shield(ShieldTest::getConfig());
-    }
-
-
-    /**
      * ShieldAction - getFile test
      */
     public function testLoad()
@@ -43,7 +25,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
         // Create ShieldAction instance
         $action = new ShieldAction();
-        $action->getFile($this->shield, $file);
+        $action->getFile($file);
 
         // Test ShieldAction::getFile method
         $this->assertContains(
@@ -64,7 +46,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         // Create ShieldAction instance and
         // call the redirect method with url
         $action = new ShieldAction();
-        $result = $action->setRedirect($this->shield, $url);
+        $result = $action->setRedirect($url);
 
         // Assert that the header was set
         $this->assertNull($result);
@@ -84,7 +66,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString($output);
 
         // Run the function to test the output
-        $action->setOutput($this->shield, $output);
+        $action->setOutput($output);
     }
 
 
@@ -95,12 +77,12 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     {
         // Create ShieldAction instance
         $action = new ShieldAction();
-        $callback = function (Shield $shield) {
-            return $shield->isEnabled();
+        $callback = function () {
+            return true;
         };
 
         // Invoke the callback method using action callback invoker
-        $response = $action->invokeCallback($this->shield, $callback);
+        $response = $action->invokeCallback($callback);
 
         // Assert that the callback was successfull
         $this->assertTrue($response);

@@ -98,8 +98,8 @@ class Shield
                 continue;
             }
 
-            // Invoke the task with givnen data
-            $action->{$task}($this, $data);
+            // Invoke the task with given data
+            $action->{$task}($data);
         }
 
         // Terminate the flow of the script
@@ -109,7 +109,7 @@ class Shield
 
     /**
      * Register Shield into debug panels
-     * 
+     *
      * @return array
      */
     protected function setDebugPanel()

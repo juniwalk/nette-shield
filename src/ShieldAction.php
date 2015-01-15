@@ -43,13 +43,12 @@ class ShieldAction
 
     /**
      * Include given file into flow
-     * 
-     * @param  Shield  $shield  Instance of Shield
+     *
      * @param  string  $file    Path to file
      * @return mixed
      * @throws ErrorException
      */
-    public function getFile(Shield $shield, $file)
+    public function getFile($file)
     {
         // If given path is not a file or it is not readable
         if (!is_file($file) || !is_readable($file)) {
@@ -63,13 +62,12 @@ class ShieldAction
 
     /**
      * Redirect to given url
-     * 
-     * @param  Shield  $shield  Instance of Shield
+     *
      * @param  string  $url     Destination url
      * @return bool|null
      * @throws ErrorException
      */
-    public function setRedirect(Shield $shield, $url)
+    public function setRedirect($url)
     {
         // If the headers were already sent
         if (headers_sent($file, $line)) {
@@ -88,12 +86,11 @@ class ShieldAction
 
     /**
      * Redirect to given url
-     * 
-     * @param  Shield  $shield  Instance of Shield
+     *
      * @param  string  $data    Data to be outputed
      * @throws ErrorException
      */
-    public function setOutput(Shield $shield, $data)
+    public function setOutput($data)
     {
         // If the data value is not scalar except null
         if (!is_scalar($data) && !is_null($data)) {
@@ -107,12 +104,11 @@ class ShieldAction
 
     /**
      * Call user function using callback
-     * 
-     * @param  Shield    $shield    Instance of Shield
+     *
      * @param  callable  $callback  Callback function
      * @throws ErrorException
      */
-    public function invokeCallback(Shield $shield, $callback)
+    public function invokeCallback($callback)
     {
         // If the method is not callable
         if (!is_callable($callback)) {
@@ -120,6 +116,6 @@ class ShieldAction
         }
 
         // Invoke the callback function with Shield as param
-        return call_user_func($callback, $shield);
+        return call_user_func($callback);
     }
 }
