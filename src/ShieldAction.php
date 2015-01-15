@@ -108,13 +108,8 @@ class ShieldAction
      * @param  callable  $callback  Callback function
      * @throws ErrorException
      */
-    public function invokeCallback($callback)
+    public function invokeCallback(callable $callback)
     {
-        // If the method is not callable
-        if (!is_callable($callback)) {
-            throw new \ErrorException('Shield: Given callback cannot be called.');
-        }
-
         // Invoke the callback function with Shield as param
         return call_user_func($callback);
     }
