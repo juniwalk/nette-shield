@@ -10,7 +10,7 @@
 
 namespace JuniWalk\Shield;
 
-use JuniWalk\Shield\Bridges\ShieldPanel;
+use JuniWalk\Shield\Bridges\TracyPanel;
 
 class Shield
 {
