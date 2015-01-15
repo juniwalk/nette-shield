@@ -35,6 +35,6 @@ Possible actions
 - `ShieldAction::OUTPUT`:   Print out given text directly.
 - `ShieldAction::CALLBACK`: Given callback will be called, instance of `Shield` will be provided.
 
-Use of multiple action is allowed, but do not use `ShieldAction::OUTPUT` and `ShieldAction::REDIRECT` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
+Use of multiple actions is allowed, but do not use `ShieldAction::OUTPUT` and `ShieldAction::REDIRECT` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
 
 *Either way `Shield::terminate();` will be called to exit the flow.*
