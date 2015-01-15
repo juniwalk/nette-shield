@@ -69,7 +69,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         $this->assertContains(
             'Location: '.$url,
             headers_list(),
-            print_r(headers_list())
+            headers_list()
         );
 
         // Remove the location header
