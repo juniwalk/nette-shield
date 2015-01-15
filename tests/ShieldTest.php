@@ -78,11 +78,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
             'debugger' => true,
 
             // Action to take
-            'action' => [
-                // No action will be taken
-                'type' => Shield::TASK_NONE,
-                'path' => null,
-            ],
+            'action' => [],
 
             // Allowed hosts
             'hosts' => [
