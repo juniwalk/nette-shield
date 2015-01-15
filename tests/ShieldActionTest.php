@@ -13,14 +13,6 @@ namespace JuniWalk\Shield\Tests;
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test file path
-     *
-     * @var Shield
-     */
-    const FILE = __DIR__.'/ShieldTest.php';
-
-
-    /**
      * Shield instance
      *
      * @var Shield
@@ -43,13 +35,16 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
+        // Prepare path to test file
+        $file = __DIR__.'/ShieldTest.php';
+
         // Create ShieldAction instance
         $action = new ShieldAction();
 
         // Test ShieldAction::getFile method
         $this->assertStringEqualsFile(
-            static::FILE,
-            $action->getFile($this->shield, static::FILE)
+            $this->file,
+            $action->getFile($this->shield, $file)
         );
     }
 
