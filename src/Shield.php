@@ -82,37 +82,27 @@ class Shield
      */
     protected function takeAction()
     {
-        // Get action path value
-        $value = $this->getAction('data');
+        // Get the list of defined actions
+        $actions = $this->config['action'];
+        $action = new ShieldAction();
 
-        // Which action should be taken?
-        switch ($this->getAction('task')) {
-            // Shield action - File inclusion
-            case static::TASK_INCLUDE:
-
-                include $value;
-                break;
-
-            // Shield action - Text output
-            case static::TASK_PRINT:
-
-                print $value;
-                break;
-
-            // Shield action - Callback invoke
-            case static::TASK_CALLBACK:
-
-                call_user_func($value, $this);
-                break;
-
-            // Shield action - Redirect to url
-            case static::TASK_REDIRECT:
-
-                header('Location: '.$value, true, 503);
-                break;
+        // If there is no list of actions
+        if (!is_array($actions)) {
+            throw new \ErrorException('Shield: Action is expected as an array of tasks.');
         }
 
-        // Either way terminate script
+        // Iterate over the set of actions to do
+        foreach ($actions as $task => $data) {
+            // If there is no such method
+            if (!method_exists($action, $task)) {
+                continue;
+            }
+
+            // Invoke the task with givnen data
+            $action->{$task}($this, $data);
+        }
+
+        // Terminate the flow of the script
         return (bool) static::terminate( );
     }
 
