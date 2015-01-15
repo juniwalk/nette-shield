@@ -66,7 +66,7 @@ class ShieldAction
      * 
      * @param  Shield  $shield  Instance of Shield
      * @param  string  $url     Destination url
-     * @return bool
+     * @return bool|null
      * @throws ErrorException
      */
     public function setRedirect(Shield $shield, $url)
