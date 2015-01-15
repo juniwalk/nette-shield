@@ -33,7 +33,7 @@ Possible actions
 - `getFile`: Include any file you wish.
 - `setRedirect`: Redirect to given url.
 - `setOutput`: Print out given text directly.
-- `invokeCallback`: Given callback will be called, instance of `Shield` will be provided.
+- `invokeCallback`: Given callback will be invoked.
 
 Use of multiple actions is allowed, but do not use `setOutput` and `setRedirect` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
 
