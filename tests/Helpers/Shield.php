@@ -8,7 +8,7 @@
  * @license   MIT License
  */
 
-namespace JuniWalk\Shield\Tests;
+namespace JuniWalk\Shield\Tests\Helpers;
 
 /**
  * Extend Shield class and override Shield::terminate()

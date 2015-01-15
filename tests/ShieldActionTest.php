@@ -10,6 +10,7 @@
 
 namespace JuniWalk\Shield\Tests;
 
+use JuniWalk\Shield\Tests\Helpers\Shield;
 use JuniWalk\Shield\ShieldAction;
 
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
@@ -38,7 +39,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         // Prepare path to test file
-        $file = __DIR__.'/IncludeTest.php';
+        $file = __DIR__.'/Helpers/Test.php';
 
         // Create ShieldAction instance
         $action = new ShieldAction();
