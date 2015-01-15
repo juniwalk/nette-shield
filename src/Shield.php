@@ -15,42 +15,6 @@ use JuniWalk\Shield\Bridges\ShieldPanel;
 class Shield
 {
     /**
-     * Shield action - Include file
-     *
-     * @var string
-     */
-    const TASK_INCLUDE = 'include';
-
-    /**
-     * Shield action - Url redirect
-     *
-     * @var string
-     */
-    const TASK_REDIRECT = 'redirect';
-
-    /**
-     * Shield action - Text print
-     *
-     * @var string
-     */
-    const TASK_PRINT = 'print';
-
-    /**
-     * Shield action - Callback
-     *
-     * @var string
-     */
-    const TASK_CALLBACK = 'callback';
-
-    /**
-     * Shield action - none
-     *
-     * @var string
-     */
-    const TASK_NONE = 'none';
-
-
-    /**
      * Configuration
      *
      * @var array
