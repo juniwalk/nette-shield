@@ -82,7 +82,7 @@ class ShieldAction
         }
 
         // Send Location header with the given url
-        return header('Location: '.$url, true, 503);
+        return header('Location: '.$url, true);
     }
 
 
