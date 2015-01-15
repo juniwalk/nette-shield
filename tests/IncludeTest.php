@@ -8,8 +8,4 @@
  * @license   MIT License
  */
 
-namespace JuniWalk\Shield\Tests;
-
-class IncludeTest
-{
-}
+return ['This is just test file :)'];
