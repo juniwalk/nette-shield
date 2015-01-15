@@ -28,7 +28,8 @@ shield:
 
 That's it!
 
-Possible actions are:
+Possible actions
+-------
 - `ShieldAction::LOAD`:     Include any file you wish.
 - `ShieldAction::REDIRECT`: Redirect to given url.
 - `ShieldAction::OUTPUT`:   Print out given text directly.
