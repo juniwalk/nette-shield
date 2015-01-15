@@ -68,6 +68,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         // Assert that the header was set
         $this->assertContains(
             'Location: '.$url,
+            headers_list(),
             headers_list()
         );
 
