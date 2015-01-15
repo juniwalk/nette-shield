@@ -30,10 +30,10 @@ That's it!
 
 Possible actions
 -------
-- `ShieldAction::LOAD`:     Include any file you wish.
-- `ShieldAction::REDIRECT`: Redirect to given url.
-- `ShieldAction::OUTPUT`:   Print out given text directly.
-- `ShieldAction::CALLBACK`: Given callback will be called, instance of `Shield` will be provided.
+- `getFile`: Include any file you wish.
+- `setRedirect`: Redirect to given url.
+- `setoutput`: Print out given text directly.
+- `invokeCallback`: Given callback will be called, instance of `Shield` will be provided.
 
 Use of multiple actions is allowed, but do not use `ShieldAction::OUTPUT` and `ShieldAction::REDIRECT` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
 
