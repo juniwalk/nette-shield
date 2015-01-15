@@ -66,7 +66,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         $result = $action->setRedirect($this->shield, $url);
 
         // Assert that the header was set
-        $this->assertTrue($result);
+        $this->assertNull($result);
     }
 
 
