@@ -10,6 +10,8 @@
 
 namespace JuniWalk\Shield\Tests;
 
+use JuniWalk\Shield\ShieldAction;
+
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
 {
     /**
