@@ -20,8 +20,7 @@ shield:
     enabled: true
     debugger: true
     action:
-        type: JuniWalk\Shield\Shield::TASK_INCLUDE
-        path: %appDir%/maintenance.php
+        JuniWalk\Shield\ShieldAction::LOAD: %appDir%/maintenance.php
     hosts:
         Localhost IPv4: 127.0.0.1
         Localhost IPv6: ::1
