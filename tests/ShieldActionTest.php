@@ -45,7 +45,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
         // Test ShieldAction::getFile method
         $this->assertStringEqualsFile(
-            $this->file,
+            $file,
             $action->getFile($this->shield, $file)
         );
     }
