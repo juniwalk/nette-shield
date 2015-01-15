@@ -20,7 +20,7 @@ shield:
     enabled: true
     debugger: true
     action:
-        JuniWalk\Shield\ShieldAction::LOAD: %appDir%/maintenance.php
+        setRedirect: /maintenance.html
     hosts:
         Localhost IPv4: 127.0.0.1
         Localhost IPv6: ::1
