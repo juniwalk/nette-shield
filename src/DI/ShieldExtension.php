@@ -48,7 +48,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
 
 
     /**
-     * Register OAuth in Nette's DI constainer
+     * Register Shield in Nette's DI constainer
      */
     public function loadConfiguration()
     {
