@@ -32,8 +32,7 @@ class Shield
 
         // If the debbuger is enabled
         if ($this->config['debugger']) {
-            // Register Shield into Tracy
-            new ShieldPanel($this);
+            $this->setDebugPanel();
         }
     }
 
@@ -119,20 +118,23 @@ class Shield
 
 
     /**
-     * Get action type
-     *
-     * @param  string  $type  Needed type
-     * @return string|null
+     * Register Shield into debug panels
+     * 
+     * @return array
      */
-    protected function getAction($type)
+    protected function setDebugPanel()
     {
-        // If there is no value for this value type
-        if (!isset($this->config['action'][$type])) {
-            return null;
+        // List of registered panels
+        $panel = array( );
+
+        // If there is Tracy loaded
+        if (class_exists('Tracy\Debugger')) {
+            // Register Shield into Tracy
+            $panel['tracy'] = new TracyPanel($this);
         }
 
-        // Return value of selected value type
-        return $this->config['action'][$type];
+        // Rerturn list of panels
+        return $panel;
     }
 
 
