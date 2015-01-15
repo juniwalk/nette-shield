@@ -7,6 +7,7 @@ convertWarningsToExceptions="true"
 convertErrorsToExceptions="true"
 syntaxCheck="true"
 verbose="true"
+stderr="true"
 >
 	<testsuites>
 		<testsuite name="Test Suite">
