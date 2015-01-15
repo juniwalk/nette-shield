@@ -33,11 +33,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
         'debugger' => true,
 
         // Action to take
-        'action' => [
-            // No action will be taken
-            'task' => Shield::TASK_NONE,
-            'data' => null,
-        ],
+        'action' => [],
 
         // Allowed hosts
         'hosts' => [
@@ -57,7 +53,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
 
         // Create new Shield service in the DI Container
         $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
-            ->setClass('\JuniWalk\Shield\Shield', [$config]);
+            ->setClass('JuniWalk\Shield\Shield', [$config]);
     }
 
     /**
