@@ -38,7 +38,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         // Prepare path to test file
-        $file = __DIR__.'/../src/Bridges/shield.png';
+        $file = __DIR__.'/IncludeTest.php';
 
         // Create ShieldAction instance
         $action = new ShieldAction();
