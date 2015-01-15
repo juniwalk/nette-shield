@@ -42,11 +42,12 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
         // Create ShieldAction instance
         $action = new ShieldAction();
+        $action->getFile($this->shield, $file);
 
         // Test ShieldAction::getFile method
-        $this->assertStringEqualsFile(
+        $this->assertContains(
             $file,
-            $action->getFile($this->shield, $file)
+            get_included_files( )
         );
     }
 
