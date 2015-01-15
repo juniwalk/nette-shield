@@ -133,7 +133,6 @@ class Shield
      */
     protected static function terminate()
     {
-        // Terminate
-        exit(0);
+        exit(0); // Terminate
     }
 }
