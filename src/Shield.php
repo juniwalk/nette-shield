@@ -133,10 +133,6 @@ class Shield
      */
     protected static function terminate()
     {
-        // Send headers about undergoing maintenance mode
-        header('HTTP/1.1 503 Service Unavailable');
-        header('Retry-After: 300');
-
         // Terminate
         exit(0);
     }
