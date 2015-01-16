@@ -70,7 +70,7 @@ class ShieldAction
     public function setRedirect($url)
     {
         // If the headers were already sent
-        if (headers_sent($file, $line) || !empty($file)) {
+        if (static::headers_sent($file, $line)) {
             throw new \ErrorException('Shield: Unable to redirect, headers already sent in '.$file.':'.$line.'.');
         }
 
@@ -112,5 +112,19 @@ class ShieldAction
     {
         // Invoke the callback function
         return call_user_func($callback);
+    }
+
+
+    /**
+     * Are headers already sent out?
+     *
+     * @param  string  $file  Path to file
+     * @param  int     $line  Line number
+     * @return bool
+     */
+    protected static function headers_sent(&$file = null, &$line = null)
+    {
+        // Simple headers_sent class with params
+        return headers_sent($file, $line);
     }
 }
