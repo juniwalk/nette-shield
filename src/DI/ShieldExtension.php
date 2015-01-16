@@ -28,19 +28,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
      *
      * @var array
      */
-    public $defaults = [
-        'enabled' => false,
-        'debugger' => true,
-
-        // Action to take
-        'action' => [],
-
-        // Allowed hosts
-        'hosts' => [
-            '127.0.0.1',  // Localhost IPv4
-            '::1',        // Localhost IPv6
-        ],
-    ];
+    public $defaults = [];
 
 
     /**
