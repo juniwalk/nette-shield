@@ -11,6 +11,7 @@
 namespace JuniWalk\Shield\Tests;
 
 use JuniWalk\Shield\ShieldAction;
+use JuniWalk\Shield\Tests\Helpers\ShieldActionMock;
 
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
 {
@@ -76,15 +77,12 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
      */
     public function testRedirectHeaders()
     {
-        // Test url for redirecting, print it to
-        // send headers and cause this test to fail
-        echo $url = 'https://www.example.org';
-
-var_dump(headers_sent($file, $line),$file,$line);
+        // Test url for redirecting
+        $url = 'https://www.example.org';
 
         // Create ShieldAction instance and
         // call the redirect method with url
-        $action = new ShieldAction();
+        $action = new ShieldActionMock();
         $action->setRedirect($url);
     }
 
