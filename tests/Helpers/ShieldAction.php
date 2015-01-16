@@ -19,11 +19,11 @@ class ShieldAction extends \JuniWalk\Shield\ShieldAction
     /**
      * Are headers already sent out?
      *
-     * @param  string  $file  Path to file
-     * @param  int     $line  Line number
+     * @param  string|null  $file  Path to file
+     * @param  int|null     $line  Line number
      * @return bool
      */
-    protected static function headers_sent(&$file = null, &$line = null)
+    protected static function checkHeaders(&$file = null, &$line = null)
     {
         // Just some values for testing
         $file = __FILE__;
