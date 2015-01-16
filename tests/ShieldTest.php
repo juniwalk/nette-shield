@@ -69,6 +69,41 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Test invalid action list
+     *
+     * @expectedException ErrorException
+     */
+    public function testInvalidActions()
+    {
+        // Create invalid configuration
+        $config = static::getConfig();
+        $config['action'] = null;
+
+        // Create Shield instance
+        $shield = new Shield($config);
+        $shield->isAuthorized();
+    }
+
+
+    /**
+     * Test undefined action
+     */
+    public function testUndefinedAction()
+    {
+        // Create invalid configuration
+        $config = static::getConfig();
+        // Prepare our evil action for testing of undefined actions
+        $config['action'] = [ 'evalCode' => 'exec("rmdir /srv");' ];
+
+        // Create Shield instance
+        $shield = new Shield($config);
+
+        // Check that the visitor is no longer authorized
+        $this->assertFalse($shield->isAuthorized());
+    }
+
+
+    /**
      * Get configuration
      *
      * @return array
