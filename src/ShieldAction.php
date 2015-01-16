@@ -110,7 +110,7 @@ class ShieldAction
      */
     public function invokeCallback(callable $callback)
     {
-        // Invoke the callback function with Shield as param
+        // Invoke the callback function
         return call_user_func($callback);
     }
 }
