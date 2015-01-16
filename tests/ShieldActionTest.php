@@ -35,6 +35,23 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * ShieldAction - Invalid getFile test
+     *
+     * @expectedException ErrorException
+     */
+    public function testLoadInvalid()
+    {
+        // Prepare path to test file
+        $file = '/There/is/no/such/file';
+
+        // Create ShieldAction instance and
+        // Test ShieldAction::getFile method
+        $action = new ShieldAction();
+        $action->getFile($file);
+    }
+
+
+    /**
      * ShieldAction - setRedirect test
      */
     public function testRedirect()
@@ -53,6 +70,41 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * ShieldAction - setRedirect test, headers sent
+     *
+     * @expectedException ErrorException
+     */
+    public function testRedirectHeaders()
+    {
+        // Test url for redirecting, print it to
+        // send headers and cause this test to fail
+        echo $url = 'https://www.example.org';
+
+        // Create ShieldAction instance and
+        // call the redirect method with url
+        $action = new ShieldAction();
+        $result = $action->setRedirect($url);
+    }
+
+
+    /**
+     * ShieldAction - Invalid setRedirect test
+     *
+     * @expectedException ErrorException
+     */
+    public function testRedirectInvalid()
+    {
+        // Test url for redirecting, invalid
+        $url = new \stdClass;
+
+        // Create ShieldAction instance and
+        // call the redirect method with url
+        $action = new ShieldAction();
+        $result = $action->setRedirect($url);
+    }
+
+
+    /**
      * ShieldAction - setoutput test
      */
     public function testOutput()
@@ -63,6 +115,22 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
 
         // Assign expected output string
         $this->expectOutputString($output);
+
+        // Run the function to test the output
+        $action->setOutput($output);
+    }
+
+
+    /**
+     * ShieldAction - Invalid setoutput test
+     *
+     * @expectedException ErrorException
+     */
+    public function testOutputInvalid()
+    {
+        // Create ShieldAction instance
+        $action = new ShieldAction();
+        $output = new \stdClass;
 
         // Run the function to test the output
         $action->setOutput($output);
