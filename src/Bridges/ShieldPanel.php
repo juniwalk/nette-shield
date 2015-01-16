@@ -13,7 +13,7 @@ namespace JuniWalk\Shield\Bridges;
 use JuniWalk\Shield\Shield;
 use Tracy\Debugger;
 
-class TracyPanel implements \Tracy\IBarPanel
+class ShieldPanel implements \Tracy\IBarPanel
 {
     /**
      *
@@ -21,7 +21,7 @@ class TracyPanel implements \Tracy\IBarPanel
      *
      * @var Shield
      */
-    protected $shield;
+    public $shield;
 
 
     /**
