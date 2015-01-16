@@ -46,6 +46,23 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Test Shield status
+     */
+    public function testDisabled()
+    {
+        // Create invalid configuration
+        $config = static::getConfig();
+        $config['enabled'] = false;
+
+        // Create Shield instance
+        $shield = new Shield($config);
+
+        // Check that the Shield is enabled
+        $this->assertFalse($shield->isEnabled());
+    }
+
+
+    /**
      * Test authorized visitor
      */
     public function testAuthorized()
@@ -100,6 +117,27 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
         // Check that the visitor is no longer authorized
         $this->assertFalse($shield->isAuthorized());
+    }
+
+
+    /**
+     * Test valid action
+     */
+    public function testValidAction()
+    {
+        // Prepare our output string for testing
+        $output = 'Test output string';
+
+        // Create invalid configuration
+        $config = static::getConfig();
+        $config['action'] = [ 'setOutput' => $output ];
+
+        // Assign expected output string
+        $this->expectOutputString($output);
+
+        // Create Shield instance
+        $shield = new Shield($config);
+        $shield->isAuthorized();
     }
 
 
