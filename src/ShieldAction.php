@@ -70,7 +70,7 @@ class ShieldAction
     public function setRedirect($url)
     {
         // If the headers were already sent
-        if (headers_sent($file, $line)) {
+        if (headers_sent($file, $line) || !empty($file)) {
             throw new \ErrorException('Shield: Unable to redirect, headers already sent in '.$file.':'.$line.'.');
         }
 
