@@ -80,6 +80,8 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         // send headers and cause this test to fail
         echo $url = 'https://www.example.org';
 
+var_dump(headers_sent($file, $line),$file,$line);
+
         // Create ShieldAction instance and
         // call the redirect method with url
         $action = new ShieldAction();
