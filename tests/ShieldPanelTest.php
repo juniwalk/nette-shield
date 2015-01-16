@@ -16,9 +16,9 @@ use JuniWalk\Shield\Shield;
 class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test ShieldPanel
+     * Test ShieldPanel - basics
      */
-    public function testAllInOne()
+    public function testBasics()
     {
         // Create simple instance of the Shield
         $config = ['enabled' => true];
@@ -30,6 +30,26 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
         // Make sure that ShieldPanel implements IBarPanel
         $this->assertInstanceOf('\Tracy\IBarPanel', $panel);
 
+        // Check that the Shield icon is returned
+        $this->assertInternalType(
+            'string',
+            $panel->getShieldIcon()
+        );
+    }
+
+
+    /**
+     * Test ShieldPanel - tracy panel
+     */
+    public function testPanel()
+    {
+        // Create simple instance of the Shield
+        $config = ['enabled' => true];
+        $shield = new Shield($config);
+
+        // Create instance of the ShieldPanel
+        $panel = new ShieldPanel($shield);
+
         // Just check first few characters
         $this->assertStringStartsWith(
             '<span title="Shield',
@@ -38,11 +58,5 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 
         // Make sure that there is no panel code
         $this->assertSame('', $panel->getPanel());
-
-        // Check that the Shield icon is returned
-        $this->assertInternalType(
-            'string',
-            $panel->getShieldIcon()
-        );
     }
 }
