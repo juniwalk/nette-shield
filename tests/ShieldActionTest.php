@@ -11,7 +11,7 @@
 namespace JuniWalk\Shield\Tests;
 
 use JuniWalk\Shield\ShieldAction;
-use JuniWalk\Shield\Tests\Helpers\ShieldActionMock;
+use JuniWalk\Shield\Tests\Helpers\ShieldAction as ShieldActionMock;
 
 class ShieldActionTest extends \PHPUnit_Framework_TestCase
 {
