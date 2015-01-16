@@ -28,7 +28,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Prepare server properties in enviroment
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
 
         // Create Shield instance
         $this->shield = new Shield(static::getConfig());
@@ -50,6 +50,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthorized()
     {
+        // Override enviroment variable just for this test
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
         // Check that the visitor is authorized to continue
         $this->assertTrue($this->shield->isAuthorized());
     }
@@ -60,9 +63,6 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnAuthorized()
     {
-        // Override enviroment variable just for this test
-        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
-
         // Check that the visitor is no longer authorized
         $this->assertFalse($this->shield->isAuthorized());
     }
