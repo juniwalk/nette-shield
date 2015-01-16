@@ -23,8 +23,8 @@ shield:
     action:
         setRedirect: /maintenance.html
     hosts:
-        Localhost IPv4: 127.0.0.1
-        Localhost IPv6: ::1
+        - 127.0.0.1     # Local IPv4
+        - ::1           # Local IPv6
 ```
 
 That's it!
