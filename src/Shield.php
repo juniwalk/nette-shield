@@ -10,7 +10,7 @@
 
 namespace JuniWalk\Shield;
 
-use JuniWalk\Shield\Bridges\TracyPanel;
+use JuniWalk\Shield\Bridges\ShieldPanel;
 
 class Shield
 {
@@ -30,9 +30,10 @@ class Shield
         // Merge the configuration into the instance holder
         $this->config = array_merge($this->config, $config);
 
-        // If the debbuger is enabled
+        // If the Tracy panel is enabled
         if ($this->config['debugger']) {
-            $this->setDebugPanel();
+            // Register Shield into Tracy
+            new ShieldPanel($this);
         }
     }
 
@@ -104,27 +105,6 @@ class Shield
 
         // Terminate the flow of the script
         return (bool) static::terminate( );
-    }
-
-
-    /**
-     * Register Shield into debug panels
-     *
-     * @return array
-     */
-    protected function setDebugPanel()
-    {
-        // List of registered panels
-        $panel = array( );
-
-        // If there is Tracy loaded
-        if (class_exists('Tracy\Debugger')) {
-            // Register Shield into Tracy
-            $panel['tracy'] = new TracyPanel($this);
-        }
-
-        // Rerturn list of panels
-        return $panel;
     }
 
 
