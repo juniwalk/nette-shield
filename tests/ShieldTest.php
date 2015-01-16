@@ -79,6 +79,8 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $config = static::getConfig();
         $config['action'] = null;
 
+print_r($_SERVER);
+
         // Create Shield instance
         $shield = new Shield($config);
         $shield->isAuthorized();
