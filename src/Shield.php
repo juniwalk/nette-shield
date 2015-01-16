@@ -29,7 +29,7 @@ class Shield
     {
         // Merge the configuration into the instance holder
         $this->config = array_merge($this->config, $config);
-
+print_r($this->config);
         // If the Tracy panel is enabled
         if ($this->config['debugger']) {
             // Register Shield into Tracy
