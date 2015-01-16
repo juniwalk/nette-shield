@@ -83,7 +83,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         // Create ShieldAction instance and
         // call the redirect method with url
         $action = new ShieldAction();
-        $result = $action->setRedirect($url);
+        $action->setRedirect($url);
     }
 
 
@@ -100,7 +100,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
         // Create ShieldAction instance and
         // call the redirect method with url
         $action = new ShieldAction();
-        $result = $action->setRedirect($url);
+        $action->setRedirect($url);
     }
 
 
