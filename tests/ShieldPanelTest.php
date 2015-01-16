@@ -40,7 +40,7 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $panel->getPanel());
 
         // Check that the Shield icon is returned
-        $this->$this->assertInternalType(
+        $this->assertInternalType(
             'string',
             $panel->getShieldIcon()
         );
