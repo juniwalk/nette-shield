@@ -2,12 +2,12 @@ Shield
 ============
 Simple, yet powerfull library for [Nette Framework](https://github.com/nette/nette) that will help you block access of unauthorized visitors when in maintenance mode, all this based on listed IP addresses.
 
-[![Travis](https://img.shields.io/travis/juniwalk/shield.svg?style=flat-square)](https://travis-ci.org/juniwalk/shield)
-[![Latest Packagist Version](https://img.shields.io/packagist/v/juniwalk/shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/shield)
-[![Total Donwloads](https://img.shields.io/packagist/dt/juniwalk/shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/shield)
-[![Code Quality](https://img.shields.io/scrutinizer/g/juniwalk/shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/shield/)
-[![Tests Coverage](https://img.shields.io/scrutinizer/coverage/g/juniwalk/shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/shield/)
-[![License](https://img.shields.io/packagist/l/juniwalk/shield.svg?style=flat-square)](https://mit-license.org)
+[![Travis](https://img.shields.io/travis/juniwalk/Shield.svg?style=flat-square)](https://travis-ci.org/juniwalk/Shield)
+[![Latest Packagist Version](https://img.shields.io/packagist/v/juniwalk/Shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/Shield)
+[![Total Donwloads](https://img.shields.io/packagist/dt/juniwalk/Shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/Shield)
+[![Code Quality](https://img.shields.io/scrutinizer/g/juniwalk/Shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/Shield/)
+[![Tests Coverage](https://img.shields.io/scrutinizer/coverage/g/juniwalk/Shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/Shield/)
+[![License](https://img.shields.io/packagist/l/juniwalk/Shield.svg?style=flat-square)](https://mit-license.org)
 
 Example
 -------
