@@ -3,7 +3,7 @@ Shield
 Simple, yet powerfull library for [Nette Framework](https://github.com/nette/nette) that will help you block access of unauthorized visitors when in maintenance mode, all this based on listed IP addresses.
 
 [![Travis](https://img.shields.io/travis/juniwalk/Shield.svg?style=flat-square)](https://travis-ci.org/juniwalk/Shield)
-[![Latest Packagist Version](https://img.shields.io/packagist/v/juniwalk/Shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/Shield)
+[![GitHub Releases](https://img.shields.io/github/release/juniwalk/Shield.svg?style=flat-square)](https://github.com/juniwalk/Shield/releases)
 [![Total Donwloads](https://img.shields.io/packagist/dt/juniwalk/Shield.svg?style=flat-square)](https://packagist.org/packages/juniwalk/Shield)
 [![Code Quality](https://img.shields.io/scrutinizer/g/juniwalk/Shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/Shield/)
 [![Tests Coverage](https://img.shields.io/scrutinizer/coverage/g/juniwalk/Shield.svg?style=flat-square)](https://scrutinizer-ci.com/g/juniwalk/Shield/)
