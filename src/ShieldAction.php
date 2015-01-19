@@ -10,6 +10,8 @@
 
 namespace JuniWalk\Shield;
 
+use JuniWalk\Common\Exceptions\ErrorException;
+
 class ShieldAction
 {
     /**
@@ -52,7 +54,7 @@ class ShieldAction
     {
         // If given path is not a file or it is not readable
         if (!is_file($file) || !is_readable($file)) {
-            throw new \ErrorException('Shield: Invalid file given to be loaded.');
+            throw new ErrorException('Invalid file given to be loaded.', $this);
         }
 
         // Load given file
@@ -71,12 +73,12 @@ class ShieldAction
     {
         // If the headers were already sent
         if (static::checkHeaders($file, $line)) {
-            throw new \ErrorException('Shield: Unable to redirect, headers already sent in '.$file.':'.$line.'.');
+            throw new ErrorException('Unable to redirect, headers already sent in '.$file.':'.$line.'.', $this);
         }
 
         // If the URL is seriously malformed
         if (!is_string($url)) {
-            throw new \ErrorException('Shield: Invalid url for redirect given.');
+            throw new ErrorException('Invalid url for redirect given.', $this);
         }
 
         // Send Location header with the given url
@@ -94,7 +96,7 @@ class ShieldAction
     {
         // If the data value is not scalar except null
         if (!is_scalar($data) && !is_null($data)) {
-            throw new \ErrorException('Shield: Only scalar values can be outputed.');
+            throw new ErrorException('Only scalar values can be outputed.', $this);
         }
 
         // Print the data
@@ -106,7 +108,7 @@ class ShieldAction
      * Call user function using callback
      *
      * @param  callable  $callback  Callback function
-     * @throws ErrorException
+     * @return mixed
      */
     public function invokeCallback(callable $callback)
     {
