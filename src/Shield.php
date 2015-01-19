@@ -10,14 +10,16 @@
 
 namespace JuniWalk\Shield;
 
+use JuniWalk\Common\Container;
+use JuniWalk\Common\Exceptions\ErrorException;
 use JuniWalk\Shield\Bridges\ShieldPanel;
 
 class Shield
 {
     /**
-     * Configuration
+     * Config container
      *
-     * @var array
+     * @var Container
      */
     protected $config = [
         'enabled' => false,
@@ -39,11 +41,12 @@ class Shield
      */
     public function __construct(array $config)
     {
-        // Merge the configuration into the instance holder
-        $this->config = array_merge($this->config, $config);
+        // Build configuration package by merging it
+        $this->config = new Container($this->config);
+        $config = $this->config->merge($config);
 
         // If the Tracy panel is enabled
-        if ($this->config['debugger']) {
+        if ($config['debugger']) {
             // Register Shield into Tracy
             new ShieldPanel($this);
         }
@@ -92,6 +95,7 @@ class Shield
      * Take action against unauthorized visitor
      *
      * @return bool
+     * @throws ErrorException
      */
     protected function takeAction()
     {
@@ -101,7 +105,7 @@ class Shield
 
         // If there is no list of actions
         if (!is_array($actions)) {
-            throw new \ErrorException('Shield: Action is expected as an array of tasks.');
+            throw new ErrorException('Action is expected as an array of tasks.', $this);
         }
 
         // Iterate over the set of actions to do
