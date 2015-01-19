@@ -30,6 +30,15 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
         // Make sure that ShieldPanel implements IBarPanel
         $this->assertInstanceOf('\Tracy\IBarPanel', $panel);
 
+        // Make sure that there is no panel code
+        $this->assertSame('', $panel->getPanel());
+
+        // Just check first few characters
+        $this->assertStringStartsWith(
+            '<span title="Shield',
+            $panel->getTab()
+        );
+
         // Check that the Shield icon is returned
         $this->assertInternalType(
             'string',
@@ -39,29 +48,9 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Test ShieldPanel - tracy tab
-     */
-    public function testTab()
-    {
-        // Create simple instance of the Shield
-        $config = ['enabled' => true];
-        $shield = new Shield($config);
-
-        // Create instance of the ShieldPanel
-        $panel = new ShieldPanel($shield);
-
-        // Just check first few characters
-        $this->assertStringStartsWith(
-            '<span title="Shield',
-            $panel->getTab()
-        );
-    }
-
-
-    /**
      * Test ShieldPanel - tracy panel
      */
-    public function testPanel()
+    public function testTab()
     {
         // Create simple instance of the Shield
         $config = ['enabled' => false];
@@ -76,7 +65,5 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
             $panel->getTab()
         );
 
-        // Make sure that there is no panel code
-        $this->assertSame('', $panel->getPanel());
     }
 }
