@@ -88,7 +88,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
     /**
      * Test invalid action list
      *
-     * @expectedException ErrorException
+     * @expectedException JuniWalk\Common\Exceptions\ErrorException
      */
     public function testInvalidActions()
     {

@@ -38,7 +38,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     /**
      * ShieldAction - Invalid getFile test
      *
-     * @expectedException ErrorException
+     * @expectedException JuniWalk\Common\Exceptions\ErrorException
      */
     public function testLoadInvalid()
     {
@@ -73,7 +73,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     /**
      * ShieldAction - setRedirect test, headers sent
      *
-     * @expectedException ErrorException
+     * @expectedException JuniWalk\Common\Exceptions\ErrorException
      */
     public function testRedirectHeaders()
     {
@@ -90,7 +90,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     /**
      * ShieldAction - Invalid setRedirect test
      *
-     * @expectedException ErrorException
+     * @expectedException JuniWalk\Common\Exceptions\ErrorException
      */
     public function testRedirectInvalid()
     {
@@ -124,7 +124,7 @@ class ShieldActionTest extends \PHPUnit_Framework_TestCase
     /**
      * ShieldAction - Invalid setoutput test
      *
-     * @expectedException ErrorException
+     * @expectedException JuniWalk\Common\Exceptions\ErrorException
      */
     public function testOutputInvalid()
     {
