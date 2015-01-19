@@ -39,12 +39,32 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Test ShieldPanel - tracy tab
+     */
+    public function testTab()
+    {
+        // Create simple instance of the Shield
+        $config = ['enabled' => true];
+        $shield = new Shield($config);
+
+        // Create instance of the ShieldPanel
+        $panel = new ShieldPanel($shield);
+
+        // Just check first few characters
+        $this->assertStringStartsWith(
+            '<span title="Shield',
+            $panel->getTab()
+        );
+    }
+
+
+    /**
      * Test ShieldPanel - tracy panel
      */
     public function testPanel()
     {
         // Create simple instance of the Shield
-        $config = ['enabled' => true];
+        $config = ['enabled' => false];
         $shield = new Shield($config);
 
         // Create instance of the ShieldPanel
