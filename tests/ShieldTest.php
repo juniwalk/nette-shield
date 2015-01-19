@@ -59,6 +59,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
         // Check that the Shield is enabled
         $this->assertFalse($shield->isEnabled());
+        $this->assertTrue($shield->isAuthorized());
     }
 
 
