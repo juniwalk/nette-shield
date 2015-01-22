@@ -43,7 +43,7 @@ class Shield
     {
         // Build configuration package by merging it
         $this->config = new Container($this->config);
-        $config = $this->config->merge($config);
+        $config = $this->config->addValues($config);
 
         // If the Tracy panel is enabled
         if ($config['debugger']) {
