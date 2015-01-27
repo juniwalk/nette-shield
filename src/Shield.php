@@ -69,7 +69,7 @@ class Shield
     /**
      * Is the visitor authorized?
      *
-     * @return  bool
+     * @return bool|null
      * @throws ErrorException|AbortException
      */
     public function isAuthorized()
