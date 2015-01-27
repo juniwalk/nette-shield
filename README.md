@@ -39,4 +39,4 @@ Possible actions
 
 Use of multiple actions is allowed, but do not use `setOutput` and `setRedirect` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
 
-*Either way `AbortException` will be thrown to terminate the flow.*
+*Either way `JuniWalk\Common\Exceptions\AbortException` will be thrown to terminate the flow.*
