@@ -89,7 +89,7 @@ class Shield
         }
 
         // Unauthorized visitor
-        $this->takeAction();
+        return $this->takeAction();
     }
 
 
