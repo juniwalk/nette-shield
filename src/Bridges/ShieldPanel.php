@@ -16,7 +16,6 @@ use Tracy\Debugger;
 class ShieldPanel implements \Tracy\IBarPanel
 {
     /**
-     *
      * Is shield enabled?
      *
      * @var Shield
