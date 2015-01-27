@@ -14,7 +14,7 @@ Example
 -------
 Add Shield configuration to your config.neon file.
 
-```neon
+```yaml
 extensions:
         shield: JuniWalk\Shield\DI\ShieldExtension
 
