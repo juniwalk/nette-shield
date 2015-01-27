@@ -10,7 +10,7 @@
 
 namespace JuniWalk\Shield\Tests;
 
-use JuniWalk\Shield\Tests\Helpers\Shield;
+use JuniWalk\Shield\Shield;
 
 class ShieldTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,11 +78,13 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test unauthorized visitor
+     *
+     * @expectedException JuniWalk\Common\Exceptions\AbortException
      */
     public function testUnAuthorized()
     {
         // Check that the visitor is no longer authorized
-        $this->assertFalse($this->shield->isAuthorized());
+        $this->shield->isAuthorized();
     }
 
 

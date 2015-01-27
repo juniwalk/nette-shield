@@ -11,6 +11,7 @@
 namespace JuniWalk\Shield;
 
 use JuniWalk\Common\Container;
+use JuniWalk\Common\Exceptions\AbortException;
 use JuniWalk\Common\Exceptions\ErrorException;
 use JuniWalk\Shield\Bridges\ShieldPanel;
 
@@ -69,6 +70,7 @@ class Shield
      * Is the visitor authorized?
      *
      * @return  bool
+     * @throws ErrorException|AbortException
      */
     public function isAuthorized()
     {
@@ -87,15 +89,14 @@ class Shield
         }
 
         // Unauthorized visitor
-        return $this->takeAction();
+        $this->takeAction();
     }
 
 
     /**
      * Take action against unauthorized visitor
      *
-     * @return bool
-     * @throws ErrorException
+     * @throws ErrorException|AbortException
      */
     protected function takeAction()
     {
@@ -120,15 +121,6 @@ class Shield
         }
 
         // Terminate the flow of the script
-        return (bool) static::terminate( );
-    }
-
-
-    /**
-     * Terminate code flow
-     */
-    protected static function terminate()
-    {
-        exit(0); // Terminate
+        throw new AbortException();
     }
 }
