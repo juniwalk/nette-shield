@@ -83,7 +83,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnAuthorized()
     {
-        // Check that the visitor is no longer authorized
+        // Perform check if user is authorized
         $this->shield->isAuthorized();
     }
 
@@ -107,6 +107,8 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test undefined action
+     *
+     * @expectedException JuniWalk\Common\Exceptions\AbortException
      */
     public function testUndefinedAction()
     {
@@ -117,9 +119,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
         // Create Shield instance
         $shield = new Shield($config);
-
-        // Check that the visitor is no longer authorized
-        $this->assertFalse($shield->isAuthorized());
+        $shield->isAuthorized();
     }
 
 
