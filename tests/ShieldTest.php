@@ -140,7 +140,14 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
         // Create Shield instance
         $shield = new Shield($config);
-        $shield->isAuthorized();
+
+        try {
+            // Check authorization status
+            $shield->isAuthorized();
+        } catch (\Exception $e) {
+            // Check that catched exception is instance of AbortException
+            $this->assertInstanceOf('\JuniWalk\Common\Exceptions\AbortException', $e);
+        }
     }
 
 
