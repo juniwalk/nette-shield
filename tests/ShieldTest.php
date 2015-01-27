@@ -100,8 +100,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $config['action'] = null;
 
         // Create Shield instance
-        $shield = new Shield($config);
-        $shield->isAuthorized();
+        static::authorize($config);
     }
 
 
@@ -118,8 +117,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $config['action'] = [ 'evalCode' => 'exec("rmdir /srv");' ];
 
         // Create Shield instance
-        $shield = new Shield($config);
-        $shield->isAuthorized();
+        static::authorize($config);
     }
 
 
@@ -138,12 +136,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         // Assign expected output string
         $this->expectOutputString($output);
 
-        // Create Shield instance
-        $shield = new Shield($config);
-
         try {
-            // Check authorization status
-            $shield->isAuthorized();
+            // Create Shield instance
+            static::authorize($config);
         } catch (\Exception $e) {
             // Check that catched exception is instance of AbortException
             $this->assertInstanceOf('\JuniWalk\Common\Exceptions\AbortException', $e);
@@ -171,5 +166,18 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
                 '::1',        // Localhost IPv6
             ],
         ];
+    }
+
+
+    /**
+     * Test authorization status
+     *
+     * @param  array  $config
+     * @return bool|null
+     * @throws ErrorException|AbortException
+     */
+    public static function authorize(array $config)
+    {
+        return (new Shield($config))->isAuthorized();
     }
 }
