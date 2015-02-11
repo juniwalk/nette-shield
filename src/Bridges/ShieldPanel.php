@@ -47,7 +47,7 @@ class ShieldPanel implements \Tracy\IBarPanel
         $enabled = $this->shield->isEnabled();
 
         return sprintf(
-            '<span title="Shield %1$s"><img src="%2$s" alt="shield" %3$s /> %1$s</span>',
+            '<span title="Shield %1$s" %3$s>%2$s %1$s</span>',
             $enabled ? 'On' : 'Off',
             $this->getShieldIcon(),
             $enabled ?: 'style="opacity: .5;"'
@@ -67,17 +67,13 @@ class ShieldPanel implements \Tracy\IBarPanel
 
 
     /**
-     * Get Shield icon as base64 string
+     * Get Shield icon as SVG
      *
      * @return	string
      */
     public function getShieldIcon()
     {
-        // Load binary data of the icon and create base64 string
-        $icon = file_get_contents(__DIR__.'/shield.png');
-        $icon = base64_encode($icon);
-
-        // Return Data URI of the Shield icon
-        return 'data:image/png;base64,'.$icon;
+        // Return SVG of the Shield icon
+        return file_get_contents(__DIR__.'/../../../resx/shield.svg');
     }
 }
