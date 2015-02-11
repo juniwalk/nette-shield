@@ -74,6 +74,6 @@ class ShieldPanel implements \Tracy\IBarPanel
     public function getShieldIcon()
     {
         // Return SVG of the Shield icon
-        return file_get_contents(__DIR__.'/../../../resx/shield.svg');
+        return file_get_contents(__DIR__.'/../../resx/shield.svg');
     }
 }
