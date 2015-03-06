@@ -53,6 +53,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testShieldDisabled()
     {
+        // Run disabled shield
         $this->getInstance([
             'enabled' => false,
         ]);
@@ -68,9 +69,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         // Run enabled shield
-        $this->getInstance([
-            'enabled' => true,
-        ]);
+        $this->getInstance();
     }
 
 
