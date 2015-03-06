@@ -108,14 +108,32 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
             'actions' => [
                 // Test include action, load DI extension class
                 'include' => __DIR__.'/../src/DI/ShieldExtension.php',
-                // Test redirect acton with example uri
-                'redirect' => 'http://example.org/',
                 // Test output
                 'output' => 255,
                 // Custom callback action, just assert enabled Shield
                 'callback' => function(Shield $shield) {
                     $this->assertTrue($shield->isEnabled());
                 },
+            ],
+        ]);
+    }
+
+
+    /**
+     * Case - Callback action test.
+     * @expectedException JuniWalk\Shield\Exception\AbortException
+     */
+    public function testRedirectAction()
+    {
+        // It should print '255' string
+        $this->expectOutputString('255');
+
+        // Run enabled shield
+        $this->getInstance([
+            // Actions to take
+            'actions' => [
+                // Test redirect acton with example uri
+                'redirect' => 'http://example.org/',
             ],
         ]);
     }
