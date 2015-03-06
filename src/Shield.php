@@ -112,6 +112,31 @@ class Shield extends \Nette\Object
 
 
     /**
+     * Add new action to the listener holder.
+     * @param  string  $action  Action name
+     * @param  mixed   $param   Optional parameter
+     * @return bool
+     */
+    public function addAction($action, $param = null)
+    {
+        // Get the name of action method
+        $method = 'action'.$action;
+
+        // If there is no such method available
+        if (!method_exists($this, $method)) {
+            return false;
+        }
+
+        // Insert callback to the action into unauthorized event listener
+        $this->onUnauthorized[] = function() use ($method, $param) {
+            return $this->$method($param);
+        };
+
+        return true;
+    }
+
+
+    /**
      * Set defined actions into event listener.
      * @param array  $actions  List of actions
      */
@@ -122,24 +147,12 @@ class Shield extends \Nette\Object
 
         // Iterate over the list of all defined actions
         foreach ($actions as $method => $param) {
-            // Get the name of action method
-            $method = 'action'.$method;
-
-            // If there is no such method available
-            if (!method_exists($this, $method)) {
-                continue;
-            }
-
-            // Insert callback to the action into unauthorized event listener
-            $this->onUnauthorized[] = function() use ($method, $param) {
-                return $this->$method($param);
-            };
+            // Add new action to the listener
+            $this->addAction($method, $param);
         }
 
         // Register abort action in the end
-        $this->onUnauthorized[] = function() {
-            return $this->actionAbort(0);
-        };
+        $this->addAction('abort', 0);
     }
 
 
