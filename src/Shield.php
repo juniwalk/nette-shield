@@ -56,9 +56,6 @@ class Shield extends \Nette\Object
             $panel->setShield($this);
         }
 
-        // Setup defined actions into events
-        $this->setActions($config['actions']);
-
         // If automatic mode is disabled or user is authorized
         if (!$this->isAutorun() || $this->isAuthorized()) {
             return null;
@@ -97,6 +94,9 @@ class Shield extends \Nette\Object
      */
     public function isAuthorized()
     {
+        // Setup defined actions into events
+        $this->setActions($config['actions']);
+
         // If the Shield is disabled
         if (!$this->isEnabled()) {
             return true;
@@ -142,9 +142,6 @@ class Shield extends \Nette\Object
      */
     protected function setActions(array $actions)
     {
-        // Clear all setup actions
-        $this->onUnauthorized = [];
-
         // Iterate over the list of all defined actions
         foreach ($actions as $method => $param) {
             // Add new action to the listener
