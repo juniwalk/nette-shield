@@ -32,7 +32,10 @@ class Shield extends \Nette\Object
         'actions' => [],
 
         // Allowed hosts
-        'hosts' => [],
+        'hosts' => [
+            '127.0.0.1',    // Localhost IPv4
+            '::1',          // Localhost IPv6
+        ],
     ];
 
     /**

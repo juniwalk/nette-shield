@@ -22,7 +22,7 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Set localhost remote address for test
-        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     }
 
 
@@ -42,8 +42,8 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
             $panel->getShieldIcon()
         );
 
-        // Create instance of the Shield class with all it's dependencies - enabled
-        new Shield(['enabled' => true, 'debugger' => true], $panel, new Response);
+        // Create instance of the Shield class - disabled
+        new Shield([], $panel, new Response);
 
         // Just check first few characters
         $this->assertStringStartsWith(
@@ -51,8 +51,8 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
             $panel->getTab()
         );
 
-        // Create instance of the Shield class with all it's dependencies - disabled
-        new Shield(['enabled' => false, 'debugger' => true], $panel, new Response);
+        // Create instance of the Shield class - enabled
+        new Shield(['enabled' => true], $panel, new Response);
 
         // Just check first few characters
         $this->assertStringStartsWith(
