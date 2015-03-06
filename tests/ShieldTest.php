@@ -26,7 +26,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      * @var array
      */
     public $defaults = [
-        'enabled' => false,
+        'enabled' => true,
         'debugger' => true,
         'autorun' => true,
 
@@ -53,7 +53,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testShieldDisabled()
     {
-        $this->getInstance();
+        $this->getInstance([
+            'enabled' => false,
+        ]);
     }
 
 
@@ -69,6 +71,16 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $this->getInstance([
             'enabled' => true,
         ]);
+    }
+
+
+    /**
+     * Case - Unauthorized access test.
+     */
+    public function testUnAuthorized()
+    {
+        // Run enabled shield
+        $this->getInstance();
     }
 
 
