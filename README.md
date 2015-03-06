@@ -1,5 +1,5 @@
 Shield
-============
+======
 
 [![Travis](https://img.shields.io/travis/juniwalk/Shield.svg?style=flat-square)](https://travis-ci.org/juniwalk/Shield)
 [![GitHub Releases](https://img.shields.io/github/release/juniwalk/Shield.svg?style=flat-square)](https://github.com/juniwalk/Shield/releases)
@@ -16,13 +16,18 @@ Add Shield configuration to your config.neon file.
 
 ```yaml
 extensions:
-        shield: JuniWalk\Shield\DI\ShieldExtension
+    shield: JuniWalk\Shield\DI\ShieldExtension
 
 shield:
     enabled: true
     debugger: true
-    action:
-        setRedirect: /maintenance.html
+    autorun: true
+    actions:
+        output: "Forbidden! 403"
+        include: %appDir%/tmp/maintenance.html
+        redirect: /tmp/maintenance.html
+        callback: {@service, method} #will receive instance of Shield
+        abort: 255 #status code
     hosts:
         - 127.0.0.1     # Local IPv4
         - ::1           # Local IPv6
@@ -31,12 +36,13 @@ shield:
 That's it!
 
 Possible actions
--------
-- `getFile`: Include any file you wish.
-- `setRedirect`: Redirect to given url.
-- `setOutput`: Print out given text directly.
-- `invokeCallback`: Given callback will be invoked.
+----------------
+- `Include`: Include any file you wish.
+- `Redirect`: Redirect to given url.
+- `Output`: Print out given text directly.
+- `Callback`: Given callback will be invoked.
+- `Abort`: Code execution is aborted.
 
-Use of multiple actions is allowed, but do not use `setOutput` and `setRedirect` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
+You can use all above mentioned actions one time, but do not use `Output` and `Redirect` in that order as headers will be send and redirect will fail. You can also leave the action empty to take no action.
 
-*Either way `JuniWalk\Common\Exceptions\AbortException` will be thrown to terminate the flow.*
+*`Abort` action is called automatically with status code 0 if you don't add it yourself.*
