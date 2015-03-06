@@ -137,7 +137,7 @@ class Shield extends \Nette\Object
 
         // Register abort action in the end
         $this->onUnauthorized[] = function() {
-            return $this->actionAbort();
+            return $this->actionAbort(0);
         };
     }
 
