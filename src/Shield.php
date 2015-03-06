@@ -23,7 +23,17 @@ class Shield extends \Nette\Object
      * Config container.
      * @var array
      */
-    protected $config;
+    protected $config = [
+        'enabled' => false,
+        'debugger' => true,
+        'autorun' => true,
+
+        // Action to take
+        'actions' => [],
+
+        // Allowed hosts
+        'hosts' => [],
+    ];
 
     /**
      * HTTP response instance.
@@ -47,7 +57,7 @@ class Shield extends \Nette\Object
     public function __construct(array $config, ShieldPanel $panel, Response $response)
     {
         // Store provided properties
-        $this->config = $config;
+        $this->config = array_merge($this->config, $config);
         $this->response = $response;
 
         // If Tracy panel is enabled
