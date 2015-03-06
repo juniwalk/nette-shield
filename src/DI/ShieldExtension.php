@@ -10,10 +10,6 @@
 
 namespace JuniWalk\Shield\DI;
 
-use JuniWalk\Shield\Shield;
-use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\Helpers;
-
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
     /**
@@ -41,21 +37,6 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
 
         // Create new Shield service in the DI Container
         $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
-            ->setClass('JuniWalk\Shield\Shield', [$config]);
-    }
-
-    /**
-     * Add Shield execution into initialize method
-     *
-     * @param ClassType  $class
-     */
-    public function afterCompile(ClassType $class)
-    {
-        // Add authomatic Shield::isAuthorized() call
-        $init = $class->methods['initialize'];
-        $init->addBody(Helpers::format(
-            '$this->getService(?)->isAuthorized();',
-            $this->prefix(static::TAG)
-        ));
+            ->setClass('JuniWalk\Shield\Shield', [ $config ]);
     }
 }
