@@ -13,18 +13,30 @@ namespace JuniWalk\Shield\DI;
 class ShieldExtension extends \Nette\DI\Extensions\DIExtension
 {
     /**
-     * DI Tag name
-     *
+     * DI Tag name.
      * @var string
      */
     const TAG = 'shield';
 
     /**
-     * Default configuration
-     *
+     * Default configuration.
      * @var array
      */
-    public $defaults = [];
+    public $defaults = [
+		'debugger' => FALSE,
+		'accessors' => FALSE,
+        'enabled' => false,
+        'debugger' => true,
+
+        // Action to take
+        'action' => [],
+
+        // Allowed hosts
+        'hosts' => [
+            '127.0.0.1',  // Localhost IPv4
+            '::1',        // Localhost IPv6
+        ],
+    ];
 
 
     /**
@@ -38,7 +50,9 @@ class ShieldExtension extends \Nette\DI\Extensions\DIExtension
 		}
 
         // Create new Shield service in the DI Container
-        $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
+        $shield = $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
             ->setClass('JuniWalk\Shield\Shield', [ $config ]);
+
+        $shield->addTag('run');
     }
 }
