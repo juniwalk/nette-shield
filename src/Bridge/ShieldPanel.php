@@ -59,7 +59,7 @@ class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
             '<span title="Shield %1$s"><span %3$s>%2$s</span> %1$s</span>',
             $enabled ? 'On' : 'Off',
             $this->getShieldIcon(),
-            $enabled ?: 'style="opacity: .5;"'
+            $enabled ? '' : 'style="opacity: .5;"'
         );
     }
 
