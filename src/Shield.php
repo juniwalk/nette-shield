@@ -102,12 +102,8 @@ class Shield extends \Nette\Object
         $hosts = $this->config['hosts'];
         $host = $_SERVER['REMOTE_ADDR'];
 
-        // If the visitor is unauthorized
-        if (in_array($host, $hosts)) {
-            return true;
-        }
-
-        return false;
+        // If the visitor is authorized
+        return in_array($host, $hosts);
     }
 
 
