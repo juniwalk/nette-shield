@@ -65,7 +65,7 @@ class Shield extends \Nette\Object
         }
 
         // User is unauthorized
-        $this->onUnauthorized();
+        return $this->onUnauthorized();
     }
 
 

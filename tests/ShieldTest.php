@@ -46,7 +46,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Prepare server properties in enviroment
-        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     }
 
 
@@ -55,6 +55,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisabled()
     {
+        // Set localhost remote address for test
+        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
+
         // Run disabled shield
         $shield = $this->getInstance([
             'enabled' => false,
@@ -70,9 +73,6 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthorized()
     {
-        // Set localhost remote address for test
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
         // Run enabled shield
         $shield = $this->getInstance();
 
@@ -88,8 +88,30 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnAuthorized()
     {
+        // Set some custom IP address for test
+        $_SERVER['REMOTE_ADDR'] = '192.168.0.1';
+
         // Run enabled shield
         $this->getInstance();
+    }
+
+
+    /**
+     * Case - Callback action test.
+     * @expectedException JuniWalk\Shield\Exception\AbortException
+     */
+    public function testActionCallback()
+    {
+        // Run enabled shield
+        $this->getInstance([
+            // Actions to take
+            'actions' => [
+                // Custom callback action, just assert enabled Shield
+                'callback' => function(Shield $shield) {
+                    $this->assertTrue($shield->isEnabled());
+                },
+            ],
+        ]);
     }
 
 
