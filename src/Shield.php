@@ -171,6 +171,34 @@ class Shield extends \Nette\Object
 
 
     /**
+     * Action - Outputs text to browser.
+     * @param string  $message  Text to ouput
+     */
+    protected function actionOutput($message)
+    {
+        // If the message is not a string
+        if (!is_string($message)) {
+            // Try to convert it into string
+            $message = (string) $message;
+        }
+
+        // Print the message
+        print $message;
+    }
+
+
+    /**
+     * Action - Invokes provided callback.
+     * @param callable  $callback
+     */
+    protected function actionCallback(callable $callback)
+    {
+        // Invoke callback
+        $callback($this);
+    }
+
+
+    /**
      * Action - Terminate the flow of the script.
      * @throws AbortException
      */
