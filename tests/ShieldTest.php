@@ -94,7 +94,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Case - Callback action test.
+     * Case - Actions test.
      * @expectedException JuniWalk\Shield\Exception\AbortException
      */
     public function testActions()
@@ -120,21 +120,21 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Case - Callback action test.
+     * Case - Redirect action test.
      * @expectedException JuniWalk\Shield\Exception\AbortException
      */
     public function testRedirectAction()
     {
-        // It should print '255' string
-        $this->expectOutputString('255');
+        // Define redirect uri
+        $uri = 'http://example.org/';
+
+        // It should print redirect message from the nette/http/response class
+        $this->expectOutputString("<h1>Redirect</h1>\n\n<p><a href=\"$uri\">Please click here to continue</a>.</p>");
 
         // Run enabled shield
         $this->getInstance([
-            // Actions to take
-            'actions' => [
-                // Test redirect acton with example uri
-                'redirect' => 'http://example.org/',
-            ],
+            // Set redirect action with given Uri
+            'actions' => [ 'redirect' => $uri ],
         ]);
     }
 
