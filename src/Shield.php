@@ -10,10 +10,11 @@
 
 namespace JuniWalk\Shield;
 
-use JuniWalk\Common\Container;
+use JuniWalk\Common\Container as Config;
 use JuniWalk\Common\Exceptions\AbortException;
 use JuniWalk\Common\Exceptions\ErrorException;
 use JuniWalk\Shield\Bridges\ShieldPanel;
+use Nette\DI\Container;
 
 class Shield
 {
@@ -40,10 +41,11 @@ class Shield
     /**
      * @param  array  $config
      */
-    public function __construct(array $config)
+    public function __construct(array $config, Container $di)
     {
+        \tracy\debugger::dump($di);exit;
         // Build configuration package by merging it
-        $this->config = new Container($this->config);
+        $this->config = new Config($this->config);
         $config = $this->config->addValues($config);
 
         // If the Tracy panel is enabled
