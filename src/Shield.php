@@ -11,6 +11,7 @@
 namespace JuniWalk\Shield;
 
 use JuniWalk\Shield\Bridge\ShieldPanel;
+use JuniWalk\Shield\Exception\AbortException;
 use Nette\Http\Response;
 
 /**
@@ -204,7 +205,9 @@ class Shield extends \Nette\Object
      */
     protected function actionAbort($status)
     {
-        // Exit the flow
-        exit($status);
+        // Abort code execution flow
+        throw isset($_SERVER['TRAVIS'])
+            ? new AbortException($status)   // For Travis throw Exception
+            : exit($status);                // Exit the flow otherwise
     }
 }
