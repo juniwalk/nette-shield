@@ -16,7 +16,7 @@
 	},
 	"require": {
 		"php": ">=5.4",
-        "nette/di": ">=2.3",
+		"nette/http": ">=2.2",
 		"tracy/tracy": ">=2.2"
 	},
 	"autoload": {

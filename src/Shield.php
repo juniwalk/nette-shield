@@ -10,39 +10,174 @@
 
 namespace JuniWalk\Shield;
 
-use JuniWalk\Common\Container as Config;
-use JuniWalk\Common\Exceptions\AbortException;
-use JuniWalk\Common\Exceptions\ErrorException;
-use JuniWalk\Shield\Bridges\ShieldPanel;
-use Nette\DI\Container;
+use JuniWalk\Shield\Bridge\ShieldPanel;
+use Nette\Http\Response;
 
-class Shield
+class Shield extends \Nette\Object
 {
     /**
-     * Config container
-     *
-     * @var Container
+     * Config container.
+     * @var array
      */
-    protected $config = [
-        'enabled' => false,
-        'debugger' => true,
+    protected $config;
 
-        // Action to take
-        'action' => [],
+    /**
+     * HTTP response instance.
+     * @var Response
+     */
+    protected $response;
 
-        // Allowed hosts
-        'hosts' => [
-            '127.0.0.1',  // Localhost IPv4
-            '::1',        // Localhost IPv6
-        ],
-    ];
+    /**
+     * Event - Unauthorized access
+     * @var array
+     */
+    public $onUnauthorized;
 
 
     /**
-     * @param  array  $config
+     * Initialize Shield instance and perform authorization.
+     * @param  array        $config    Configuration
+     * @param  ShieldPanel  $panel     Tracy's ShieldPanel
+     * @param  Response     $response  Http response
      */
-    public function __construct(array $config, Container $di)
+    public function __construct(array $config, ShieldPanel $panel, Response $response)
     {
-        \tracy\debugger::dump($di);exit;
+        // Store provided properties
+        $this->config = $config;
+        $this->response = $response;
+
+        // If Tracy panel is enabled
+        if ($config['debugger']) {
+            // Set Shield instance to panel
+            $panel->setShield($this);
+        }
+
+        // Setup defined actions into events
+        $this->setActions($config['actions']);
+
+        // If automatic mode is disabled or user is authorized
+        if (!$this->isAutorun() || $this->isAuthorized()) {
+            return null;
+        }
+
+        // User is unauthorized
+        $this->onUnauthorized();
+    }
+
+
+    /**
+     * Is the Shield enabled?
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        // Return state of the Shield
+        return (bool) $this->config['enabled'];
+    }
+
+
+    /**
+     * Autorun Shield authorizator?
+     * @return bool
+     */
+    public function isAutorun()
+    {
+        // Return state of the Shield
+        return (bool) $this->config['autorun'];
+    }
+
+
+    /**
+     * Is current visitor authorized?
+     * @return bool
+     */
+    public function isAuthorized()
+    {
+        // If the Shield is disabled
+        if (!$this->isEnabled()) {
+            return true;
+        }
+
+        // Gather needed properties for check
+        $hosts = $this->config['hosts'];
+        $host = $_SERVER['REMOTE_ADDR'];
+
+        // If the visitor is unauthorized
+        if (in_array($host, $hosts)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Set defined actions into event listener.
+     * @param array  $actions  List of actions
+     */
+    protected function setActions(array $actions)
+    {
+        // Clear all setup actions
+        $this->onUnauthorized = [];
+
+        // Iterate over the list of all defined actions
+        foreach ($actions as $method => $param) {
+            // Get the name of action method
+            $method = 'action'.$method;
+
+            // If there is no such method available
+            if (!method_exists($this, $method)) {
+                continue;
+            }
+
+            // Insert callback to the action into unauthorized event listener
+            $this->onUnauthorized[] = function() use ($method, $param) {
+                return $this->$method($param);
+            };
+        }
+
+        // Register abort action in the end
+        $this->onUnauthorized[] = function() {
+            return $this->actionAbort();
+        };
+    }
+
+
+    /**
+     * Action - Allows to redirect to a Url.
+     * @param string  $uri  Endpoint URI
+     */
+    protected function actionRedirect($uri)
+    {
+        // Redirect to giben Uri address
+        $this->response->redirect($uri);
+    }
+
+
+    /**
+     * Action - Includes specified file.
+     * @param string  $file  Path to file
+     */
+    protected function actionInclude($file)
+    {
+        // If there is no such file or it is not readable
+        if (!is_file($file) || !is_readable($file)) {
+            return null;
+        }
+
+        // Include the file
+        include $file;
+    }
+
+
+    /**
+     * Action - Terminate the flow of the script.
+     * @throws AbortException
+     */
+    protected function actionAbort()
+    {
+        // Abort the flow of the script
+        exit;
+        //throw new AbortException();
     }
 }
