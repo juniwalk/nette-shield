@@ -17,11 +17,6 @@ use Nette\Http\Response;
 class ShieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Shield instance holder.
-     */
-    protected $shield;
-
-    /**
      * Default configuration.
      * @var array
      */
