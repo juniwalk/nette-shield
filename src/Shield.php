@@ -199,11 +199,12 @@ class Shield extends \Nette\Object
 
     /**
      * Action - Terminate the flow of the script.
+     * @param  mixed  $status  Exit status
      * @throws AbortException
      */
-    protected function actionAbort()
+    protected function actionAbort($status)
     {
-        // Abort the flow of the script
-        exit;
+        // Exit the flow
+        exit($status);
     }
 }
