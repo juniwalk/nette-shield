@@ -13,6 +13,9 @@ namespace JuniWalk\Shield;
 use JuniWalk\Shield\Bridge\ShieldPanel;
 use Nette\Http\Response;
 
+/**
+ * @method void onUnauthorized()
+ */
 class Shield extends \Nette\Object
 {
     /**
