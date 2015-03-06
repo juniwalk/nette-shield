@@ -94,8 +94,8 @@ class Shield extends \Nette\Object
      */
     public function isAuthorized()
     {
-        // Setup defined actions into events
-        $this->setActions($config['actions']);
+        // Setup defined actions
+        $this->setActions();
 
         // If the Shield is disabled
         if (!$this->isEnabled()) {
@@ -138,12 +138,11 @@ class Shield extends \Nette\Object
 
     /**
      * Set defined actions into event listener.
-     * @param array  $actions  List of actions
      */
-    protected function setActions(array $actions)
+    protected function setActions()
     {
         // Iterate over the list of all defined actions
-        foreach ($actions as $method => $param) {
+        foreach ($this->config['actions'] as $method => $param) {
             // Add new action to the listener
             $this->addAction($method, $param);
         }
