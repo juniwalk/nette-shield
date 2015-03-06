@@ -51,12 +51,15 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
     /**
      * Case - Disabled Shield test.
      */
-    public function testShieldDisabled()
+    public function testDisabled()
     {
         // Run disabled shield
-        $this->getInstance([
+        $shield = $this->getInstance([
             'enabled' => false,
         ]);
+
+        // Assert that the Shield really is disabled
+        $this->assertFalse($shield->isEnabled());
     }
 
 
@@ -69,7 +72,11 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         // Run enabled shield
-        $this->getInstance();
+        $shield = $this->getInstance();
+
+        // Assert that the Shield really is disabled
+        $this->assertTrue($shield->isEnabled());
+        $this->assertTrue($shield->isAuthorized());
     }
 
 
@@ -80,6 +87,10 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
     {
         // Run enabled shield
         $this->getInstance();
+
+        // Assert that the Shield really is disabled
+        $this->assertTrue($shield->isEnabled());
+        $this->assertFalse($shield->isAuthorized());
     }
 
 
