@@ -64,7 +64,7 @@ class Shield extends \Nette\Object
         $this->response = $response;
 
         // If Tracy panel is enabled
-        if ($config['debugger']) {
+        if ($this->config['debugger']) {
             // Set Shield instance to panel
             $panel->setShield($this);
         }
