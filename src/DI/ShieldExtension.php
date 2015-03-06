@@ -18,7 +18,7 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
      */
     public $defaults = [
         'enabled' => false,
-		'debugger' => true,
+        'debugger' => true,
         'autorun' => true,
 
         // Action to take

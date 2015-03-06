@@ -21,6 +21,22 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     protected $shield;
 
+    /**
+     * Default configuration.
+     * @var array
+     */
+    public $defaults = [
+        'enabled' => false,
+        'debugger' => true,
+        'autorun' => true,
+
+        // Action to take
+        'actions' => [],
+
+        // Allowed hosts
+        'hosts' => [],
+    ];
+
 
     /**
      * Create symlinks for needed files.
@@ -33,9 +49,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Case - Basic Shield test.
+     * Case - Disabled Shield test.
      */
-    public function testBasic()
+    public function testShieldDisabled()
     {
         $shield = $this->getInstance();
     }
@@ -43,26 +59,15 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Get configuration.
+     * @param  array  $config  Custom config
      * @return Shield
      */
-    protected function getInstance()
+    protected function getInstance(array $config = [])
     {
-        $config = [
-            'enabled' => true,
-            'debugger' => true,
-            'autorun' => false,
+        // Merge the config with default values
+        $config = array_merge($this->defaults, $config);
 
-            // Actions to take
-            'actions' => [],
-
-            // Allowed hosts
-            'hosts' => [
-                '127.0.0.1',  // Localhost IPv4
-                '::1',        // Localhost IPv6
-            ],
-        ];
-
-
+        // Return instance of the Shield class with all it's dependencies
         return new Shield($config, new ShieldPanel, new Response);
     }
 }
