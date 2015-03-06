@@ -11,6 +11,8 @@
 namespace JuniWalk\Shield\Tests\Bridge;
 
 use JuniWalk\Shield\Bridge\ShieldPanel;
+use JuniWalk\Shield\Shield;
+use Nette\Http\Response;
 
 class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,6 +30,24 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType(
             'string',
             $panel->getShieldIcon()
+        );
+
+        // Create instance of the Shield class with all it's dependencies - enabled
+        new Shield(['enabled' => true, 'debugger' => true], $panel, new Response);
+
+        // Just check first few characters
+        $this->assertStringStartsWith(
+            '<span title="Shield',
+            $panel->getTab()
+        );
+
+        // Create instance of the Shield class with all it's dependencies - disabled
+        new Shield(['enabled' => false, 'debugger' => true], $panel, new Response);
+
+        // Just check first few characters
+        $this->assertStringStartsWith(
+            '<span title="Shield',
+            $panel->getTab()
         );
     }
 }
