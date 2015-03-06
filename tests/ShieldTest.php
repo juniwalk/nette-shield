@@ -36,7 +36,7 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Create symlinks for needed files.
+     * Add remote address to the enviroment.
      */
     protected function setUp()
     {

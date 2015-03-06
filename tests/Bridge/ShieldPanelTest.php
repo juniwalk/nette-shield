@@ -17,6 +17,16 @@ use Nette\Http\Response;
 class ShieldPanelTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Add remote address to the enviroment.
+     */
+    protected function setUp()
+    {
+        // Set localhost remote address for test
+        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
+    }
+
+
+    /**
      * Case - Basic panel test.
      */
     public function testBasic()
