@@ -202,6 +202,5 @@ class Shield extends \Nette\Object
     {
         // Abort the flow of the script
         exit;
-        //throw new AbortException();
     }
 }
