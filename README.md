@@ -10,6 +10,13 @@ Shield
 
 Simple, yet powerfull library for [Nette Framework](https://github.com/nette/nette) that will help you block access of unauthorized visitors when in maintenance mode, all this based on listed IP addresses.
 
+Installation
+------------
+Best way to install Shield is using composer.
+```
+$ composer require juniwalk/shield:~1.3
+```
+
 Example
 -------
 Add Shield configuration to your config.neon file.
@@ -35,8 +42,8 @@ shield:
 
 That's it!
 
-Possible actions
-----------------
+Actions
+-------
 - `Include`: Include any file you wish.
 - `Redirect`: Redirect to given url.
 - `Output`: Print out given text directly.
