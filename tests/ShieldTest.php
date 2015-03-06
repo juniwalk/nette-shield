@@ -94,10 +94,10 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Case - Actions test.
+     * Case - Actions test, first pass.
      * @expectedException JuniWalk\Shield\Exception\AbortException
      */
-    public function testActions()
+    public function testActionsPass1()
     {
         // It should print '255' string
         $this->expectOutputString('255');
@@ -120,10 +120,10 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Case - Redirect action test.
+     * Case - Actions test, second pass.
      * @expectedException JuniWalk\Shield\Exception\AbortException
      */
-    public function testRedirectAction()
+    public function testActionsPass2()
     {
         // Define redirect uri
         $uri = 'http://example.org/';
@@ -134,7 +134,14 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         // Run enabled shield
         $this->getInstance([
             // Set redirect action with given Uri
-            'actions' => [ 'redirect' => $uri ],
+            'actions' => [
+                // No such action
+                'noaction' => null,
+                // Test include action, non-existent file
+                'include' => '/there/is/no/such/file.xxx',
+                // Test redirect action
+                'redirect' => $uri,
+            ],
         ]);
     }
 
