@@ -45,8 +45,8 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        // Prepare server properties in enviroment
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        // Set localhost remote address for test
+        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
     }
 
 
@@ -55,9 +55,6 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisabled()
     {
-        // Set localhost remote address for test
-        $_SERVER['REMOTE_ADDR'] = '255.255.255.255';
-
         // Run disabled shield
         $shield = $this->getInstance([
             'enabled' => false,
@@ -73,6 +70,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthorized()
     {
+        // Set some custom IP address for test
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
         // Run enabled shield
         $shield = $this->getInstance();
 
@@ -88,9 +88,6 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnAuthorized()
     {
-        // Set some custom IP address for test
-        $_SERVER['REMOTE_ADDR'] = '192.168.0.1';
-
         // Run enabled shield
         $this->getInstance();
     }
