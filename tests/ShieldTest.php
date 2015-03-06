@@ -34,7 +34,9 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         'actions' => [],
 
         // Allowed hosts
-        'hosts' => [],
+        'hosts' => [
+            '127.0.0.1',
+        ],
     ];
 
 
@@ -82,15 +84,12 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Case - Unauthorized access test.
+     * @expectedException JuniWalk\Shield\Exception\AbortException
      */
     public function testUnAuthorized()
     {
         // Run enabled shield
         $this->getInstance();
-
-        // Assert that the Shield really is disabled
-        $this->assertTrue($shield->isEnabled());
-        $this->assertFalse($shield->isAuthorized());
     }
 
 
