@@ -10,7 +10,7 @@
 
 namespace JuniWalk\Shield\DI;
 
-class ShieldExtension extends \Nette\DI\CompilerExtension
+class ShieldExtension extends \Nette\DI\Extensions\DIExtension
 {
     /**
      * DI Tag name
@@ -32,8 +32,10 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
      */
     public function loadConfiguration()
     {
-        // Get the configuration values extending defaults
-        $config = $this->getConfig($this->defaults);
+		$config = $this->validateConfig($this->defaults);
+		if ($config['accessors']) {
+			$this->getContainerBuilder()->parameters['container']['accessors'] = TRUE;
+		}
 
         // Create new Shield service in the DI Container
         $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
