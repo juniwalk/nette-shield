@@ -17,8 +17,8 @@ Best way to install Shield is using composer.
 $ composer require juniwalk/shield:~1.3
 ```
 
-Example
--------
+Usage
+-----
 Add Shield configuration to your config.neon file.
 
 ```yaml
