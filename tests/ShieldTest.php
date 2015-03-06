@@ -53,7 +53,22 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testShieldDisabled()
     {
-        $shield = $this->getInstance();
+        $this->getInstance();
+    }
+
+
+    /**
+     * Case - Authorized access test.
+     */
+    public function testAuthorized()
+    {
+        // Set localhost remote address for test
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+        // Run enabled shield
+        $this->getInstance([
+            'enabled' => true,
+        ]);
     }
 
 
