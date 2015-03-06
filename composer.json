@@ -16,10 +16,8 @@
 	},
 	"require": {
 		"php": ">=5.4",
-        "juniwalk/common": "~0.9"
-	},
-	"require-dev": {
-		"tracy/tracy": "~2.2"
+		"nette/http": ">=2.2",
+		"tracy/tracy": ">=2.2"
 	},
 	"autoload": {
 		"psr-4": {

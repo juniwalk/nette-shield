@@ -8,46 +8,55 @@
  * @license   MIT License
  */
 
-namespace JuniWalk\Shield\Bridges;
+namespace JuniWalk\Shield\Bridge;
 
 use JuniWalk\Shield\Shield;
 use Tracy\Debugger;
 
-class ShieldPanel implements \Tracy\IBarPanel
+class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
 {
     /**
-     * Is shield enabled?
-     *
+     * Shield instance.
      * @var Shield
      */
-    public $shield;
+    protected $shield;
 
 
     /**
-     * @param  array  $config
+     * Register this panel into Tracy.
      */
-    public function __construct(Shield &$shield)
+    public function __construct()
     {
-        // Assign Shield instance
-        $this->shield = $shield;
-
         // Register debugger panel into the Tracy bar
-        Debugger::getBar()->addPanel($this, 'shield');
+        Debugger::getBar()->addPanel($this, 'juniwalk.shield');
+    }
+
+
+    /**
+     * Set new instance of Shield.
+     * @param Shield  $shield  Shield instance
+     */
+    public function setShield(Shield $shield)
+    {
+        $this->shield = $shield;
     }
 
 
     /**
      * Renders HTML code for custom tab.
-     *
-     * @return	string
+     * @return string
      */
     public function getTab()
     {
+        // If there is no Shield instance
+        if (empty($this->shield)) {
+            return '';
+        }
+
         // Get the current status of the Shield
         $enabled = $this->shield->isEnabled();
-
         return sprintf(
-            '<span title="Shield %1$s" %3$s>%2$s %1$s</span>',
+            '<span title="Shield %1$s"><span %3$s>%2$s</span> %1$s</span>',
             $enabled ? 'On' : 'Off',
             $this->getShieldIcon(),
             $enabled ?: 'style="opacity: .5;"'
@@ -57,8 +66,7 @@ class ShieldPanel implements \Tracy\IBarPanel
 
     /**
      * Renders HTML code for custom panel.
-     *
-     * @return	string
+     * @return string
      */
     public function getPanel()
     {
@@ -67,9 +75,8 @@ class ShieldPanel implements \Tracy\IBarPanel
 
 
     /**
-     * Get Shield icon as SVG
-     *
-     * @return	string
+     * Get Shield icon as SVG.
+     * @return string
      */
     public function getShieldIcon()
     {

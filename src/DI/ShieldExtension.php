@@ -10,52 +10,42 @@
 
 namespace JuniWalk\Shield\DI;
 
-use JuniWalk\Shield\Shield;
-use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\Helpers;
-
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
     /**
-     * DI Tag name
-     *
-     * @var string
-     */
-    const TAG = 'shield';
-
-    /**
-     * Default configuration
-     *
+     * Default configuration.
      * @var array
      */
-    public $defaults = [];
+    public $defaults = [
+        'enabled' => false,
+		'debugger' => true,
+        'autorun' => true,
+
+        // Action to take
+        'actions' => [],
+
+        // Allowed hosts
+        'hosts' => [],
+    ];
 
 
-    /**
-     * Register Shield in Nette's DI constainer
-     */
-    public function loadConfiguration()
-    {
-        // Get the configuration values extending defaults
-        $config = $this->getConfig($this->defaults);
+	/**
+	 * Register all Shield classes into DI container.
+	 */
+	public function beforeCompile()
+	{
+        // Get validated configuration using default values
+		$config = $this->validateConfig($this->defaults);
+
+        // Create new ShieldPanel service in the DI Container
+        $this->getContainerBuilder()
+            ->addDefinition('juniwalk.shield.panel')
+            ->setClass('JuniWalk\Shield\Bridge\ShieldPanel');
 
         // Create new Shield service in the DI Container
-        $this->getContainerBuilder()->addDefinition($this->prefix(static::TAG))
-            ->setClass('JuniWalk\Shield\Shield', [$config]);
-    }
-
-    /**
-     * Add Shield execution into initialize method
-     *
-     * @param ClassType  $class
-     */
-    public function afterCompile(ClassType $class)
-    {
-        // Add authomatic Shield::isAuthorized() call
-        $init = $class->methods['initialize'];
-        $init->addBody(Helpers::format(
-            '$this->getService(?)->isAuthorized();',
-            $this->prefix(static::TAG)
-        ));
-    }
+        $this->getContainerBuilder()
+            ->addDefinition('juniwalk.shield')
+            ->setClass('JuniWalk\Shield\Shield', [ $config ])
+            ->addTag('run');
+	}
 }

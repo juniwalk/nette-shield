@@ -10,54 +10,67 @@
 
 namespace JuniWalk\Shield;
 
-use JuniWalk\Common\Container;
-use JuniWalk\Common\Exceptions\AbortException;
-use JuniWalk\Common\Exceptions\ErrorException;
-use JuniWalk\Shield\Bridges\ShieldPanel;
+use JuniWalk\Shield\Bridge\ShieldPanel;
+use Nette\Http\Response;
 
-class Shield
+/**
+ * @method void onUnauthorized()
+ */
+class Shield extends \Nette\Object
 {
     /**
-     * Config container
-     *
-     * @var Container
+     * Config container.
+     * @var array
      */
-    protected $config = [
-        'enabled' => false,
-        'debugger' => true,
+    protected $config;
 
-        // Action to take
-        'action' => [],
+    /**
+     * HTTP response instance.
+     * @var Response
+     */
+    protected $response;
 
-        // Allowed hosts
-        'hosts' => [
-            '127.0.0.1',  // Localhost IPv4
-            '::1',        // Localhost IPv6
-        ],
-    ];
+    /**
+     * Event - Unauthorized access
+     * @var array
+     */
+    public $onUnauthorized;
 
 
     /**
-     * @param  array  $config
+     * Initialize Shield instance and perform authorization.
+     * @param  array        $config    Configuration
+     * @param  ShieldPanel  $panel     Tracy's ShieldPanel
+     * @param  Response     $response  Http response
      */
-    public function __construct(array $config)
+    public function __construct(array $config, ShieldPanel $panel, Response $response)
     {
-        // Build configuration package by merging it
-        $this->config = new Container($this->config);
-        $config = $this->config->addValues($config);
+        // Store provided properties
+        $this->config = $config;
+        $this->response = $response;
 
-        // If the Tracy panel is enabled
+        // If Tracy panel is enabled
         if ($config['debugger']) {
-            // Register Shield into Tracy
-            new ShieldPanel($this);
+            // Set Shield instance to panel
+            $panel->setShield($this);
         }
+
+        // Setup defined actions into events
+        $this->setActions($config['actions']);
+
+        // If automatic mode is disabled or user is authorized
+        if (!$this->isAutorun() || $this->isAuthorized()) {
+            return null;
+        }
+
+        // User is unauthorized
+        $this->onUnauthorized();
     }
 
 
     /**
      * Is the Shield enabled?
-     *
-     * @return  bool
+     * @return bool
      */
     public function isEnabled()
     {
@@ -67,60 +80,130 @@ class Shield
 
 
     /**
-     * Is the visitor authorized?
-     *
-     * @return bool|null
-     * @throws ErrorException|AbortException
+     * Autorun Shield authorizator?
+     * @return bool
      */
-    public function isAuthorized()
+    public function isAutorun()
     {
-        // Gather needed properties for check
-        $hosts = $this->config['hosts'];
-        $host = $_SERVER['REMOTE_ADDR'];
-
-        // If the Shield is disabled
-        if (!$this->config['enabled']) {
-            return true;
-        }
-
-        // If the visitor is unauthorized
-        if (in_array($host, $hosts)) {
-            return true;
-        }
-
-        // Unauthorized visitor
-        return $this->takeAction();
+        // Return state of the Shield
+        return (bool) $this->config['autorun'];
     }
 
 
     /**
-     * Take action against unauthorized visitor
-     *
-     * @throws ErrorException|AbortException
+     * Is current visitor authorized?
+     * @return bool
      */
-    protected function takeAction()
+    public function isAuthorized()
     {
-        // Get the list of defined actions
-        $actions = $this->config['action'];
-        $action = new ShieldAction();
-
-        // If there is no list of actions
-        if (!is_array($actions)) {
-            throw new ErrorException('Action is expected as an array of tasks.', $this);
+        // If the Shield is disabled
+        if (!$this->isEnabled()) {
+            return true;
         }
 
-        // Iterate over the set of actions to do
-        foreach ($actions as $task => $data) {
-            // If there is no such method
-            if (!method_exists($action, $task)) {
+        // Gather needed properties for check
+        $hosts = $this->config['hosts'];
+        $host = $_SERVER['REMOTE_ADDR'];
+
+        // If the visitor is authorized
+        return in_array($host, $hosts);
+    }
+
+
+    /**
+     * Set defined actions into event listener.
+     * @param array  $actions  List of actions
+     */
+    protected function setActions(array $actions)
+    {
+        // Clear all setup actions
+        $this->onUnauthorized = [];
+
+        // Iterate over the list of all defined actions
+        foreach ($actions as $method => $param) {
+            // Get the name of action method
+            $method = 'action'.$method;
+
+            // If there is no such method available
+            if (!method_exists($this, $method)) {
                 continue;
             }
 
-            // Invoke the task with given data
-            $action->{$task}($data);
+            // Insert callback to the action into unauthorized event listener
+            $this->onUnauthorized[] = function() use ($method, $param) {
+                return $this->$method($param);
+            };
         }
 
-        // Terminate the flow of the script
-        throw new AbortException();
+        // Register abort action in the end
+        $this->onUnauthorized[] = function() {
+            return $this->actionAbort();
+        };
+    }
+
+
+    /**
+     * Action - Allows to redirect to a Url.
+     * @param string  $uri  Endpoint URI
+     */
+    protected function actionRedirect($uri)
+    {
+        // Redirect to giben Uri address
+        $this->response->redirect($uri);
+    }
+
+
+    /**
+     * Action - Includes specified file.
+     * @param string  $file  Path to file
+     */
+    protected function actionInclude($file)
+    {
+        // If there is no such file or it is not readable
+        if (!is_file($file) || !is_readable($file)) {
+            return null;
+        }
+
+        // Include the file
+        include $file;
+    }
+
+
+    /**
+     * Action - Outputs text to browser.
+     * @param string  $message  Text to ouput
+     */
+    protected function actionOutput($message)
+    {
+        // If the message is not a string
+        if (!is_string($message)) {
+            // Try to convert it into string
+            $message = (string) $message;
+        }
+
+        // Print the message
+        print $message;
+    }
+
+
+    /**
+     * Action - Invokes provided callback.
+     * @param callable  $callback
+     */
+    protected function actionCallback(callable $callback)
+    {
+        // Invoke callback
+        $callback($this);
+    }
+
+
+    /**
+     * Action - Terminate the flow of the script.
+     * @throws AbortException
+     */
+    protected function actionAbort()
+    {
+        // Abort the flow of the script
+        exit;
     }
 }
