@@ -16,11 +16,21 @@ use Nette\Configurator;
 class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Case - Basic extension test.
+     * Case - Extension test.
      */
-    public function testBasic()
+    public function testExtension()
     {
-        $this->createContainer();
+        // Get the Shield service from container
+        $shield = $this->createContainer()
+            ->getService('juniwalk.shield');
+
+        // Check that the Shield is really Shield
+        // and that it is enabled from configuration
+        $this->assertTrue($shield->isEnabled());
+        $this->assertInstanceOf(
+            '\JuniWalk\Shield\Shield',
+            $shield
+        );
     }
 
 
