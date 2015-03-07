@@ -101,8 +101,8 @@ class ShieldTest extends \PHPUnit_Framework_TestCase
         $this->getInstance([
             // Actions to take
             'actions' => [
-                // Test include action, load DI extension class
-                'include' => __DIR__.'/../src/DI/ShieldExtension.php',
+                // Test include action, load dummy php file
+                'include' => __DIR__.'/Helpers/dummy.php',
                 // Test output
                 'output' => 255,
                 // Custom callback action, just assert enabled Shield

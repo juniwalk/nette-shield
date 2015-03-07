@@ -16,6 +16,13 @@ use Nette\Configurator;
 class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Configuration file.
+     * @vqr string
+     */
+    const CONFIG = __DIR__.'/../Helpers/config.neon';
+
+
+    /**
      * Case - Basic extension test.
      */
     public function testBasic()
@@ -32,7 +39,7 @@ class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
         // Create bootstrap configurator
 		$config = new Configurator;
 		$config->setTempDirectory(sys_get_temp_dir());
-		$config->addConfig(__DIR__.'/../../res/config.neon');
+		$config->addConfig(static::CONFIG);
 
         // Create DI container
 		return $config->createContainer();
