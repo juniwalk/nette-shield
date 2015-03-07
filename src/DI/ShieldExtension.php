@@ -32,13 +32,13 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
     ];
 
 
-	/**
-	 * Register all Shield classes into DI container.
-	 */
-	public function beforeCompile()
-	{
+    /**
+    * Register all Shield classes into DI container.
+    */
+    public function beforeCompile()
+    {
         // Get validated configuration using default values
-		$config = $this->validateConfig($this->defaults);
+        $config = $this->validateConfig($this->defaults);
 
         // Create new ShieldPanel service in the DI Container
         $this->getContainerBuilder()
@@ -50,5 +50,5 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
             ->addDefinition('juniwalk.shield')
             ->setClass('JuniWalk\Shield\Shield', [ $config ])
             ->addTag('run');
-	}
+    }
 }
