@@ -1,9 +1,4 @@
 
-# Nette Services
-services:
-	cacheStorage:
-		class: Nette\Caching\Storages\MemoryStorage
-
 # Nette Extensions
 extensions:
     shield: JuniWalk\Shield\DI\ShieldExtension
