@@ -10,6 +10,9 @@
 
 namespace JuniWalk\Shield\DI;
 
+use Nette\DI\Config\Helpers;
+use Nette\InvalidStateException;
+
 class ShieldExtension extends \Nette\DI\CompilerExtension
 {
     /**
@@ -37,8 +40,14 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
     */
     public function beforeCompile()
     {
-        // Get validated configuration using default values
-        $config = $this->validateConfig($this->defaults);
+        // Get configuration with default values
+        $config = $this->getConfig($this->defaults);
+
+        // If validateConfig method is available for use
+        if (method_exists($this, 'validateConfig')) {
+            // Get the config validated for default values
+            $config = $this->validateConfig($this->defaults);
+        }
 
         // Create new ShieldPanel service in the DI Container
         $this->getContainerBuilder()
