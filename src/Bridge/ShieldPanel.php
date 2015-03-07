@@ -11,7 +11,7 @@
 namespace JuniWalk\Shield\Bridge;
 
 use JuniWalk\Shield\Shield;
-use Tracy\Debugger as Tracy;
+use Tracy\Debugger;
 
 class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
 {
@@ -28,7 +28,7 @@ class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
     public function __construct()
     {
         // Register debugger panel into the Tracy bar
-        Tracy::getBar()->addPanel($this, 'shield.shield');
+        Debugger::getBar()->addPanel($this, 'shield.shield');
     }
 
 
@@ -84,7 +84,7 @@ class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
         $icon = 'shield.png';
 
         // If tracy is in version range of ~2.3
-        if (substr(Tracy::VERSION, 0, 3) === '2.3') {
+        if (defined('\Tracy\Debugger::VERSION')) {
             // Use new SVG icon
             $icon = 'shield.svg';
         }
