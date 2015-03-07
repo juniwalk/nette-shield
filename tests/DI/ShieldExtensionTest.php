@@ -13,8 +13,11 @@ namespace JuniWalk\Shield\Tests\DI;
 use JuniWalk\Shield\DI\ShieldExtension;
 use Nette\Configurator;
 
-class ShieldPanelTest extends \PHPUnit_Framework_TestCase
+class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    const TMPDIR = __DIR__.'/../../tmp';
+
+
     /**
      * Case - Basic extension test.
      */
@@ -29,9 +32,15 @@ class ShieldPanelTest extends \PHPUnit_Framework_TestCase
      */
     protected function createContainer()
     {
+        // If there is no temp directory
+        if (!is_dir(static::TMPDIR)) {
+            // Try tp create one recursively
+            mkdir(static::TMPDIR, 0755, true);
+        }
+
         // Create bootstrap configurator
 		$config = new Configurator;
-		$config->setTempDirectory(__DIR__.'/../../tmp');
+		$config->setTempDirectory(static::TMPDIR);
 		$config->addConfig(__DIR__.'/../../res/config.neon');
 
         // Create DI container
