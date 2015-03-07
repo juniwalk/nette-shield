@@ -1,0 +1,17 @@
+
+# Nette Services
+services:
+	cacheStorage:
+		class: Nette\Caching\Storages\MemoryStorage
+
+# Nette Extensions
+extensions:
+    shield: JuniWalk\Shield\DI\ShieldExtension
+
+# Shield extension
+shield:
+    enabled: true
+    autorun: false
+    hosts:
+        - 127.0.0.1     # Local IPv4
+        - ::1           # Local IPv6
