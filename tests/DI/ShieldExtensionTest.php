@@ -22,7 +22,7 @@ class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
     {
         // Get the Shield service from container
         $shield = $this->createContainer()
-            ->getService('juniwalk.shield');
+            ->getService('shield.shield');
 
         // Check that the Shield is really Shield
         // and that it is enabled from configuration
