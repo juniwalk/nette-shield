@@ -84,7 +84,7 @@ class ShieldPanel extends \Nette\Object implements \Tracy\IBarPanel
         $icon = 'shield.png';
 
         // If tracy is in version range of ~2.3
-        if (substr(Tracy::VERSION, 0, 3) === '2.3') {
+        if (substr(Tracy::$version, 0, 3) === '2.3') {
             // Use new SVG icon
             $icon = 'shield.svg';
         }
