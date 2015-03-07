@@ -51,12 +51,12 @@ class ShieldExtension extends \Nette\DI\CompilerExtension
 
         // Create new ShieldPanel service in the DI Container
         $this->getContainerBuilder()
-            ->addDefinition('juniwalk.shield.panel')
+            ->addDefinition($this->prefix('panel'))
             ->setClass('JuniWalk\Shield\Bridge\ShieldPanel');
 
         // Create new Shield service in the DI Container
         $this->getContainerBuilder()
-            ->addDefinition('juniwalk.shield')
+            ->addDefinition($this->prefix('shield'))
             ->setClass('JuniWalk\Shield\Shield', [ $config ])
             ->addTag('run');
     }
