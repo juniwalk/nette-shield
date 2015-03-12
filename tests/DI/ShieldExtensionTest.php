@@ -40,11 +40,11 @@ class ShieldExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createContainer()
     {
         // Create bootstrap configurator
-		$config = new Configurator;
-		$config->setTempDirectory(sys_get_temp_dir());
-		$config->addConfig(__DIR__.'/../Helpers/config.neon');
+        $config = new Configurator;
+        $config->setTempDirectory(sys_get_temp_dir());
+        $config->addConfig(__DIR__.'/../Helpers/config.neon');
 
         // Create DI container
-		return $config->createContainer();
+        return $config->createContainer();
     }
 }
