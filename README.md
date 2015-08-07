@@ -10,6 +10,10 @@ Shield
 
 Simple, yet powerfull library for [Nette Framework](https://github.com/nette/nette) that will help you block access of unauthorized visitors when in maintenance mode, all this based on listed IP addresses.
 
+Abandoned
+---------
+After some usage I came to realize that this tool makes more problems than it solves.
+
 Installation
 ------------
 Best way to install Shield is using composer.
